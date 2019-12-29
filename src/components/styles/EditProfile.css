@@ -1,0 +1,57 @@
+.EditProfile_modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  overflow: hidden;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.EditProfile_modalContent {
+  margin: 15% auto;
+  background: white;
+  width: 70%;
+  padding: 9px;
+}
+.close {
+  border: 0;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  background: rgba(0, 0, 0, 0.74);
+  box-shadow: 0 1px 5px black;
+  margin: -5% 0 10px calc(100% - 20px);
+  cursor: pointer;
+}
+.close:focus {
+  outline: none;
+}
+
+.EditProfile_modalContent button[type="submit"] {
+  width: 150px;
+  padding: 5px;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-left: calc(100% - 150px);
+  cursor: pointer;
+  background: #d63031;
+  color: whitesmoke;
+  font-size: 1.5em;
+}
+
+@media all and (max-width: 600px) {
+  .EditProfile_modal {
+    overflow: auto;
+  }
+  .EditProfile_modalContent button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0 0 0;
+    font-size: 1.5em;
+    float: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}

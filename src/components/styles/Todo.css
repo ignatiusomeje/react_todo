@@ -1,0 +1,16 @@
+.Todo_wrapper {
+  min-width: 500px;
+  padding: 40px;
+}
+.Todo_wrapper h1 {
+  text-align: center;
+}
+@media all and (max-width: 600px) {
+  .Todo_wrapper {
+    min-width: 200px;
+    padding: 30px;
+  }
+  .Todo_wrapper h1 {
+    font-size: 25px;
+  }
+}

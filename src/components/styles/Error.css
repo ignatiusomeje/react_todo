@@ -1,0 +1,33 @@
+.error {
+  padding-top: 100px;
+  text-align: center;
+}
+.error h1 {
+  letter-spacing: 50px;
+  font-size: 5em;
+}
+.error p {
+  letter-spacing: 3px;
+  font-size: 2em;
+}
+.error span {
+  border-radius: 15px;
+  background: maroon;
+  cursor: pointer;
+  padding: 3px;
+  color: white;
+}
+
+@media all and (max-width: 600px) {
+  .error {
+    padding-top: 50px;
+  }
+  .error h1 {
+    letter-spacing: 25px;
+    font-size: 3em;
+  }
+  .error p {
+    letter-spacing: 1px;
+    font-size: 1em;
+  }
+}

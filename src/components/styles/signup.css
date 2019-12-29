@@ -1,0 +1,135 @@
+.signup,
+.login {
+  margin: 30px auto;
+  width: 50vw;
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.623);
+  border-radius: 15px;
+  box-shadow: 0 0 2px;
+}
+.signup div,
+.login div,
+.EditProfile_modalContent div {
+  display: flex;
+  font-size: 1em;
+  letter-spacing: 0.5px;
+  align-items: flex-end;
+  background: transparent;
+  height: 30px;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+}
+.signup input,
+.login input,
+.EditProfile_modalContent input {
+  width: 70%;
+  border: 0;
+  margin-left: 5px;
+  padding-bottom: 0;
+  background-color: transparent;
+}
+.signup form:last-child,
+.login form:last-child,
+.EditProfile_modalContent form:last-child {
+  margin-bottom: 30px;
+}
+.signup input:focus,
+.login input:focus,
+.EditProfile_modalContent input:focus {
+  outline: none;
+}
+.signup button,
+.login button {
+  width: 150px;
+  padding: 5px;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-left: calc(100% - 150px);
+  cursor: pointer;
+  background: #d63031;
+  color: whitesmoke;
+  font-size: 1.5em;
+}
+.login input::placeholder,
+.signup input::placeholder,
+.EditProfile_modalContent input::placeholder {
+  opacity: 0;
+}
+.show_hide {
+  visibility: visible;
+  margin: 0px;
+}
+.login > p,
+.signup > p {
+  font-size: 1em;
+  letter-spacing: 2px;
+  color: black;
+  font-weight: 200px;
+}
+
+@media all and (max-width: 600px) {
+  .signup,
+  .login {
+    width: 80vw;
+    padding: 15px;
+    padding-bottom: 35px;
+  }
+  .login {
+    position: relative;
+    transform: translate(-50, -50);
+    right: 0;
+    left: 0;
+  }
+  .signup div,
+  .login div,
+  .EditProfile_modalContent div {
+    display: block;
+    height: 30px;
+    margin-bottom: 17px;
+    border-bottom: none;
+    padding-bottom: 5px;
+    padding-bottom: 5px;
+  }
+  .signup div .login div,
+  .EditProfile_modalContent div {
+    font-size: 1.5em;
+  }
+  .signup input,
+  .login input,
+  .EditProfile_modalContent input {
+    width: 100%;
+    border: 1px solid;
+    margin-left: -5px;
+    padding: 5px;
+    border: 0;
+    border-bottom: 1px solid;
+  }
+  .login input::placeholder,
+  .signup input::placeholder,
+  .EditProfile_modalContent input::placeholder {
+    opacity: 1;
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  .show_hide {
+    visibility: hidden;
+    margin: 0px;
+  }
+  .signup h1,
+  .login h1,
+  .EditProfile_modalContent h1 {
+    margin: 0px;
+    padding: 0px;
+  }
+  .signup button,
+  .login button {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0 0 0;
+    font-size: 1.5em;
+    float: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}

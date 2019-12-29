@@ -1,0 +1,35 @@
+.Header {
+  color: black;
+  padding: 9px;
+}
+.header_navlink {
+  margin: 20px;
+  color: black;
+  text-decoration: none;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+.action {
+  color: black;
+  border-bottom: 2px solid green;
+}
+
+.header_navlink:hover {
+  border-bottom: 2px solid green;
+}
+
+@media all and (max-width: 600px) {
+  .Header {
+    padding: 0px;
+  }
+  .header_navlink {
+    text-align: center;
+    margin: 0;
+    margin-right: 15px;
+    color: black;
+    font-weight: 400px;
+    text-decoration: none;
+    font-size: 17px;
+    padding-bottom: 5px;
+  }
+}
