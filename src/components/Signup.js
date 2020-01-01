@@ -2,31 +2,37 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./styles/signup.css";
 import "./styles/SignInSignOut.css";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { CreateUser } from "./../actions/userActions";
 
-export default class Signup extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      password: "",
-      dob: "",
-      address: "",
-      phoneNumber: ""
+      form: {
+        firstName: "",
+        lastName: "",
+        username: "",
+        email: "",
+        password: "",
+        dob: "",
+        address: "",
+        phoneNumber: ""
+      }
     };
   }
   HandleInputChanges = e => {
     const targetName = e.target.name;
     const targetValue = e.target.value;
     this.setState(() => ({
-      [targetName]: targetValue
+      form: { ...this.state.form, [targetName]: targetValue }
     }));
   };
   HandleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.CreateUser(this.state.form);
+    console.log(this.state.form);
   };
   render() {
     return (
@@ -46,7 +52,7 @@ export default class Signup extends Component {
                 name="firstName"
                 autoFocus={true}
                 required={true}
-                value={this.state.firstName}
+                value={this.state.form.firstName}
                 onChange={this.HandleInputChanges}
                 placeholder="First Name"
               />
@@ -57,7 +63,7 @@ export default class Signup extends Component {
                 type="text"
                 name="lastName"
                 required={true}
-                value={this.state.lastName}
+                value={this.state.form.lastName}
                 onChange={this.HandleInputChanges}
                 placeholder="Last Name"
               />
@@ -68,7 +74,7 @@ export default class Signup extends Component {
                 type="text"
                 name="username"
                 required={true}
-                value={this.state.username}
+                value={this.state.form.username}
                 onChange={this.HandleInputChanges}
                 placeholder="Username"
               />
@@ -79,7 +85,7 @@ export default class Signup extends Component {
                 type="email"
                 name="email"
                 required={true}
-                value={this.state.email}
+                value={this.state.form.email}
                 onChange={this.HandleInputChanges}
                 placeholder="Email"
               />
@@ -90,7 +96,7 @@ export default class Signup extends Component {
                 type="password"
                 name="password"
                 required={true}
-                value={this.state.password}
+                value={this.state.form.password}
                 onChange={this.HandleInputChanges}
                 placeholder="Password"
               />
@@ -101,7 +107,7 @@ export default class Signup extends Component {
                 type="date"
                 name="dob"
                 required={true}
-                value={this.state.dob}
+                value={this.state.form.dob}
                 onChange={this.HandleInputChanges}
                 placeholder="Date of Birth"
               />
@@ -112,7 +118,7 @@ export default class Signup extends Component {
                 type="text"
                 name="address"
                 required={true}
-                value={this.state.address}
+                value={this.state.form.address}
                 onChange={this.HandleInputChanges}
                 placeholder="Address"
               />
@@ -123,7 +129,7 @@ export default class Signup extends Component {
                 type="number"
                 name="phoneNumber"
                 required={true}
-                value={this.state.phoneNumber}
+                value={this.state.form.phoneNumber}
                 onChange={this.HandleInputChanges}
                 placeholder="Phone Number"
               />
@@ -135,3 +141,12 @@ export default class Signup extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ CreateUser }, dispatch);
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Signup);

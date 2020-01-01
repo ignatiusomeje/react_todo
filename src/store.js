@@ -1,13 +1,21 @@
-// import {createStore, combineReducers} from 'redux';
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
-// const store = createStore(combineReducers({
-//   User:{
+import TodoReducer from "./reducers/reducer_todos";
+import UserReducer from "./reducers/reducer_user";
 
-//   },
-//   Todos: []
-// }));
+const store = createStore(
+  combineReducers(
+    {
+      User: UserReducer,
+      Todos: TodoReducer
+      // currentTodo: {}
+    }
+  ),
+  applyMiddleware(thunk)
+);
 
-// export default store;
+export default store;
 
 // creating an account***********
 // "firstName" -
@@ -20,5 +28,5 @@
 //   "phoneNumber";
 
 // login*****************
-// "username" 
+// "username"
 //  "password";

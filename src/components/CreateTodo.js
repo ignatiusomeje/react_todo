@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { CreatesTodo } from "./../actions/TodoActions";
 import "./styles/CreateTodo.css";
 
-export default class CreateTodo extends Component {
+class CreateTodo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,6 +21,7 @@ export default class CreateTodo extends Component {
   };
   HandleSubmit = e => {
     e.preventDefault();
+    console.log(this.props.CreatesTodo(this.state.todo));
     console.log(this.state);
   };
   render() {
@@ -42,3 +47,11 @@ export default class CreateTodo extends Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ CreatesTodo }, dispatch);
+}
+export default connect(
+  null,
+  mapDispatchToProps
+)(CreateTodo);
