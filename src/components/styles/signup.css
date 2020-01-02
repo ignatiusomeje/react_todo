@@ -68,6 +68,13 @@
   font-weight: 200px;
 }
 
+.signup_error {
+  background: maroon;
+  color: whitesmoke;
+  text-align: center;
+  padding: 4px;
+}
+
 @media all and (max-width: 600px) {
   .signup,
   .login {

@@ -1,0 +1,12 @@
+.wrapper_verify {
+  padding: 10px;
+}
+
+.wrapper_verify h1,
+.wrapper_verify p {
+  text-align: center;
+}
+
+.wrapper_verify p {
+  font-size: 1.5em;
+}

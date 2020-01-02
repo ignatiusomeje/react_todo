@@ -1,5 +1,4 @@
 import React from "react";
-// NavLink
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.css";
 import Signup from "./components/Signup";
@@ -12,16 +11,20 @@ import CreateTodo from "./components/CreateTodo";
 import EditProfile from "./components/EditProfile";
 import VerifyUserAccount from "./components/VerifyUserAccount";
 import IndividualTodo from "./components/IndividualTodo";
+import ShowNotVerified from "./components/VerifyAccount";
 
 function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/signup">
+          <Signup />
+        </Route>
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/signup">
-          <Signup />
+        <Route path="/unverified">
+          <ShowNotVerified />
         </Route>
         <Route exact={true} path="/todos">
           <Todo />

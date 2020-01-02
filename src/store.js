@@ -1,18 +1,17 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
 import TodoReducer from "./reducers/reducer_todos";
 import UserReducer from "./reducers/reducer_user";
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-  combineReducers(
-    {
-      User: UserReducer,
-      Todos: TodoReducer
-      // currentTodo: {}
-    }
-  ),
-  applyMiddleware(thunk)
+  combineReducers({
+    User: UserReducer,
+    Todos: TodoReducer
+    // currentTodo: {}
+  }),
+  composeEnhancers(applyMiddleware(thunk))
 );
 
 export default store;

@@ -8,10 +8,14 @@ const Header = props => {
       <NavLink to="/todos" activeClassName="action" className="header_navlink">
         Todos
       </NavLink>
-      <NavLink to="/new_todo" className="header_navlink">
+      <NavLink
+        to="/new_todo"
+        className="header_navlink"
+        activeClassName="action"
+      >
         Create Todo
       </NavLink>
-      <NavLink to="#" className="header_navlink">
+      <NavLink to="#" className="header_navlink" activeClassName="action">
         Edit Profile
       </NavLink>
     </div>
