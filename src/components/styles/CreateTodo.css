@@ -1,93 +1,91 @@
-.todo_wrapper {
-  display: flex;
-  margin: 30px;
-  min-width: 80%;
-  min-height: auto;
-  max-height: 100%;
-  margin: 0 auto;
-  margin-bottom: 15px;
+.CreateTodo_modal,
+.EditTodo_modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  overflow: hidden;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.CreateTodo_modalContent,
+.EditTodo_modalContent {
+  margin: 15% auto;
+  background: white;
+  width: 70%;
+  padding: 9px;
   border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.425);
 }
-.left_side {
-  border-right: 1px solid black;
-  padding: 5px;
-  min-width: 100px;
-}
-.left_side p:nth-child(1) {
-  padding: 7px;
-  border-right: none;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-  margin-right: -5px;
-}
-.todo_buttons button,
-.left_side button {
-  width: 90px;
-  padding: 0.5px;
-  border-radius: 9px;
-  margin: 5px;
+.Create_todo_close {
+  border: 0;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  background: rgba(0, 0, 0, 0.74);
+  box-shadow: 0 1px 5px black;
+  margin: -5% 0 10px calc(100% - 20px);
   cursor: pointer;
 }
-.todo_buttons {
+.Create_todo_close:focus,
+input[name="activity"]:focus {
+  outline: none;
+}
+
+.EditTodo_modalContent textarea {
+  min-height: 50px;
+  width: 90%;
+  resize: none;
+  margin: 10px auto;
+}
+.CreateTodo_modalContent button[type="submit"],
+.EditTodo_modalContent button[type="submit"] {
+  width: 250px;
+  padding: 5px;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-left: calc(100% - 250px);
+  cursor: pointer;
+  background: #d63031;
+  color: whitesmoke;
+  font-size: 1.5em;
+}
+.editBtn {
   display: flex;
-  padding: 4px;
-  justify-content: flex-end;
-  margin: 1px;
 }
-.todo_activity {
-  line-height: 20px;
-  margin: 4px;
-  padding: 2px;
-}
-.done {
-  background: rgba(0, 128, 0, 0.829);
-}
-.not_done {
-  background: rgba(255, 0, 0, 0.918);
-}
-.done,
-.not_done {
-  color: white;
+.Cancel {
+  width: 250px;
+  padding: 5px;
+  border-radius: 10px;
+  margin-top: 15px;
+
+  cursor: pointer;
+  background: #d63031;
+  color: whitesmoke;
+  font-size: 1.5em;
 }
 @media all and (max-width: 600px) {
-  .todo_wrapper {
-    display: inline-block;
-    margin: 0 auto;
-    min-width: 0;
+  .CreateTodo_modal,
+  .EditTodo_modal {
+    overflow: auto;
+  }
+  .CreateTodo_modalContent,
+  .EditTodo_modalContent {
+    margin: 45% auto;
+  }
+  .CreateTodo_modalContent button[type="submit"],
+  .EditTodo_modalContent button[type="submit"],
+  .Cancel {
     width: 100%;
-    max-height: 50%;
+    padding: 10px;
+    margin: 25px 0 0 0;
+    font-size: 1.5em;
+    float: none;
+    border-radius: 10px;
+    cursor: pointer;
   }
-  .left_side {
-    border-right: 0;
-  }
-  .todo_buttons button,
-  .left_side button {
-    width: 70px;
-    padding: 0.2px;
-    margin: 1px;
-  }
-  .left_side p:nth-child(2) {
-    display: flex;
-    justify-content: space-between;
-  }
-  .left_side button {
-    height: 20px;
-  }
-  .todo_buttons {
-    justify-content: space-around;
-    margin: 0;
-  }
-  .todo_activity {
-    display: flex;
-    border: 1px solid;
-    /* width: 232px; */
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    height: 90px;
-    padding: 0 9px 15px 9px;
-    padding-bottom: 13px;
+  .editBtn {
+    display: block;
   }
 }

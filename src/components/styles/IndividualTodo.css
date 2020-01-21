@@ -73,7 +73,7 @@
   .todo_wrappers {
     display: block;
     margin: 15% auto;
-    min-height: 100%;
+    min-height: 50%;
     /* max-height: 50%; */
   }
   .left_sides {
@@ -99,7 +99,7 @@
   .todo_activity {
     border: 0px;
     width: 90%;
-    min-height: 100vh;
+    min-height: 35%;
     padding: 0 9px;
   }
   .closes {

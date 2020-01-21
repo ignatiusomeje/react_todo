@@ -3,22 +3,47 @@ import Header from "./Header";
 import TodoItem from "./TodoItem";
 import "./styles/Todo.css";
 import data from "./data";
-export default class Todo extends Component {
+import { bindActionCreators } from "redux";
+import { FetchAllTodos, IsDoneTodo } from "./../actions/TodoActions";
+import { connect } from "react-redux";
+
+class Todo extends Component {
+  componentDidMount() {
+    this.props.FetchAllTodos();
+  }
   render() {
-    {
-      console.log(data);
-    }
     return (
-      // {console.log(data)}
-      <div className="Todo_wrapper">
+      <div>
         <Header />
-        <div>
-          <h1> Your Saved Todos</h1>
-          {data.map((data, index) => (
-            <TodoItem key={data.id} value={index + 1} />
-          ))}
+        <div className="Todo_wrapper">
+          <div>
+            <h1> Your Saved Todos</h1>
+            {this.props.todos.length < 1 ? (
+              <p>Sorry, you don't have any todo, so do create one</p>
+            ) : (
+              this.props.todos.map((todo, index) => {
+                return <TodoItem key={todo._id} todo={todo} />;
+              })
+            )}
+          </div>
         </div>
       </div>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ FetchAllTodos, IsDoneTodo }, dispatch);
+};
+
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    todos: state.Todos.todo
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Todo);

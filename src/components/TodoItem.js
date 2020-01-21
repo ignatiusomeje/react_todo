@@ -1,5 +1,13 @@
-import React from "react";
+import React, { Component } from "react";
 import "./styles/TodoItem.css";
+import { bindActionCreators } from "redux";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  DeleteTodo,
+  IsDoneTodo,
+  FetchAllTodos
+} from "./../actions/TodoActions";
 // activity: {
 //   type: String,
 //   required: true,
@@ -37,41 +45,84 @@ import "./styles/TodoItem.css";
 //   default: null,
 // }
 
-const TodoItem = props => {
-  return (
-    <div className="todo_wrapper">
-      <div className="left_side">
-        <p className={props.value % 2 ? "done" : "not_done"}>
-          {props.value % 2 ? "Todo Done" : "Todo in Progress"}
-        </p>
-        <p>
-          Created: <br />
-          25 mins ago
-          <button>View Todo</button>
-        </p>
-      </div>
-      <div className="right_side">
-        <p className="todo_buttons">
-          <button>Delete</button>
-          <button>Done</button>
+class TodoItem extends Component {
+  HandleDeleteBtn = () => {
+    this.props.DeleteTodo(this.props.todo._id);
+  };
+  HandleDoneBtn = () => {
+    this.props.IsDoneTodo(this.props.todo);
+  };
+  render() {
+    return (
+      <div className="todos_wrapper">
+        <div className="left_side">
+          <p className={this.props.todo.isDone ? "done" : "not_done"}>
+            {this.props.todo.isDone
+              ? `Todo Done ${
+                  this.props.todo.isDone ? this.props.todo.durationDoneAt : null
+                }`
+              : "Todo in Progress"}
+          </p>
+          <p>
+            Created: <br />
+            {this.props.todo.durationCreatedAt}
+            <br />
+            <Link
+              to={{
+                pathname: `/todo/${this.props.todo._id}`,
+                state: { background: this.props.location }
+              }}
+            >
+              <button>View Todo</button>
+            </Link>
+          </p>
+        </div>
+        <div className="right_side">
+          <p className="todo_buttons">
+            <button
+              // className="deleteEdit"
+              onClick={this.HandleDeleteBtn}
+            >
+              Delete
+            </button>
+            {this.props.todo.isDone ? null : (
+              <button onClick={this.HandleDoneBtn}>Done</button>
+            )}
 
-          <button> Edit</button>
-        </p>
-        <p className="todo_activity">
-          Populated paths are no longer set to their original _id , their value
-          is replaced with the mongoose document returned from the database by
-          performing a separate query before returning the results. Arrays of
-          refs work the same way. Just call the populate method on the query and
-          an array of documents will be returned in place of the original _ids.
-          {/* hi */}
-          Populated paths are no longer set to their original _id , their value
-          is replaced with the mongoose document returned from the database by
-          performing a separate query before returning the results. Arrays of
-          refs work the same way. Just call the populate method on the query and
-          an array of documents will be returned in place of the original _ids.
-        </p>
+            <Link
+              to={{
+                pathname: `/todo/edit/${this.props.todo._id}`,
+                state: { background: this.props.location }
+              }}
+            >
+              <button
+              // className="deleteEdit"
+              >
+                Edit
+              </button>
+            </Link>
+          </p>
+          <p className="todo_activities">{this.props.todo.activity}</p>
+        </div>
       </div>
-    </div>
+    );
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      DeleteTodo,
+      IsDoneTodo,
+      FetchAllTodos
+    },
+    dispatch
   );
 };
-export default TodoItem;
+
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(TodoItem)
+);

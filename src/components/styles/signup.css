@@ -9,7 +9,8 @@
 }
 .signup div,
 .login div,
-.EditProfile_modalContent div {
+.EditProfile_modalContent div,
+.CreateTodo_modalContent div {
   display: flex;
   font-size: 1em;
   letter-spacing: 0.5px;
@@ -22,7 +23,8 @@
 }
 .signup input,
 .login input,
-.EditProfile_modalContent input {
+.EditProfile_modalContent input,
+.CreateTodo_modalContent input {
   width: 70%;
   border: 0;
   margin-left: 5px;
@@ -31,12 +33,13 @@
 }
 .signup form:last-child,
 .login form:last-child,
-.EditProfile_modalContent form:last-child {
+.EditProfile_modalContent form:last-child,
+.CreateTodo_modalContent form:last-child {
   margin-bottom: 30px;
 }
 .signup input:focus,
 .login input:focus,
-.EditProfile_modalContent input:focus {
+.EditProfile_modalContent input:focus .CreateTodo_modalContent input:focus {
   outline: none;
 }
 .signup button,
@@ -53,7 +56,8 @@
 }
 .login input::placeholder,
 .signup input::placeholder,
-.EditProfile_modalContent input::placeholder {
+.EditProfile_modalContent input::placeholder,
+.CreateTodo_modalContent input::placeholder {
   opacity: 0;
 }
 .show_hide {
@@ -90,7 +94,8 @@
   }
   .signup div,
   .login div,
-  .EditProfile_modalContent div {
+  .EditProfile_modalContent div,
+  .CreateTodo_modalContent div {
     display: block;
     height: 30px;
     margin-bottom: 17px;
@@ -99,12 +104,14 @@
     padding-bottom: 5px;
   }
   .signup div .login div,
-  .EditProfile_modalContent div {
+  .EditProfile_modalContent div,
+  .CreateTodo_modalContent div {
     font-size: 1.5em;
   }
   .signup input,
   .login input,
-  .EditProfile_modalContent input {
+  .EditProfile_modalContent input,
+  .CreateTodo_modalContent input {
     width: 100%;
     border: 1px solid;
     margin-left: -5px;
@@ -114,7 +121,8 @@
   }
   .login input::placeholder,
   .signup input::placeholder,
-  .EditProfile_modalContent input::placeholder {
+  .EditProfile_modalContent input::placeholder,
+  .CreateTodo_modalContent input::placeholder {
     opacity: 1;
     font-weight: bold;
     font-size: 1.5em;
@@ -125,7 +133,8 @@
   }
   .signup h1,
   .login h1,
-  .EditProfile_modalContent h1 {
+  .EditProfile_modalContent h1,
+  .CreateTodo_modalContent h1 {
     margin: 0px;
     padding: 0px;
   }

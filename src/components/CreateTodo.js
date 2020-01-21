@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -9,38 +10,68 @@ class CreateTodo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todo: ""
+      todo: { activity: "" },
+      error: null
     };
   }
   HandleInputChanges = e => {
     const targetName = e.target.name;
     const targetValue = e.target.value;
     this.setState(() => ({
-      [targetName]: targetValue
+      todo: {
+        [targetName]: targetValue
+      }
     }));
   };
   HandleSubmit = e => {
     e.preventDefault();
-    console.log(this.props.CreatesTodo(this.state.todo));
-    console.log(this.state);
+    if (this.state.todo.activity.trim() === "") {
+      return this.setState(() => ({
+        error: "No new Activity given"
+      }));
+    } else if (this.state.todo.activity.trim().length < 6) {
+      return this.setState(() => ({
+        error: `Minimum length required is 6 Characters while your new Activity has ${
+          this.state.todo.activity.trim().length
+        } characters`
+      }));
+    } else {
+      this.props.CreatesTodo(this.state.todo);
+      e.stopPropagation();
+      this.props.history.push("/todos");
+    }
+  };
+  HandleOnClick = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.props.history.push("/todos");
   };
   render() {
     return (
       <div className="CreateTodo_modal">
         <div className="CreateTodo_modalContent">
-          <button className="close">X</button>
-          <h1>What's your new Todo?</h1>
+          <button className="Create_todo_close" onClick={this.HandleOnClick}>
+            X
+          </button>
+          <h1>New Activity?</h1>
           <form onSubmit={this.HandleSubmit}>
             <div>
-              <label>Your Todo</label>
+              <label htmlFor="create-todo" className="show_hide">
+                New Activity
+              </label>
               <input
-                name="todo"
-                value={this.state.todo}
+                name="activity"
+                value={this.state.todo.activity}
                 onChange={this.HandleInputChanges}
                 placeholder="New Todo"
               />
             </div>
-            <button>Create Todo</button>
+            <button type="submit">Create Activity</button>
+            {(this.state.error || this.props.createError) && (
+              <p className="signup_error">
+                {this.state.error || this.props.createError}
+              </p>
+            )}
           </form>
         </div>
       </div>
@@ -51,7 +82,15 @@ class CreateTodo extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ CreatesTodo }, dispatch);
 }
-export default connect(
-  null,
-  mapDispatchToProps
-)(CreateTodo);
+
+const mapStateToProps = state => {
+  return {
+    createError: state.Todos.todoError
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(CreateTodo)
+);

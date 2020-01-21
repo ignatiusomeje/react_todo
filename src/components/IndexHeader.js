@@ -5,7 +5,7 @@ import "./styles/IndexHeader.css";
 
 const IndexHeader = props => {
   return (
-    <div className="Header">
+    <div className="Header Main_index_header">
       <NavLink
         to="/"
         activeClassName="action"
