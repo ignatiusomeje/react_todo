@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import Header from "./Header";
 import TodoItem from "./TodoItem";
 import "./styles/Todo.css";
-import data from "./data";
 import { bindActionCreators } from "redux";
-import { FetchAllTodos, IsDoneTodo } from "./../actions/TodoActions";
+import { FetchAllTodos, IsDoneTodo, ClearTodo } from "./../actions/TodoActions";
 import { connect } from "react-redux";
 
 class Todo extends Component {
   componentDidMount() {
-    this.props.FetchAllTodos();
+    this.props.FetchAllTodos(this.props.token);
+  }
+  componentWillUnmount() {
+    this.props.ClearTodo();
   }
   render() {
     return (
@@ -33,13 +35,13 @@ class Todo extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ FetchAllTodos, IsDoneTodo }, dispatch);
+  return bindActionCreators({ FetchAllTodos, IsDoneTodo, ClearTodo }, dispatch);
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
-    todos: state.Todos.todo
+    todos: state.Todos.todo,
+    token: state.User.user.token.token
   };
 };
 

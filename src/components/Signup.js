@@ -143,7 +143,7 @@ class Signup extends Component {
               <div>
                 <p className="show_hide">Phone Number</p>
                 <input
-                  type="number"
+                  type="tel"
                   name="phoneNumber"
                   required={true}
                   value={this.state.form.phoneNumber}

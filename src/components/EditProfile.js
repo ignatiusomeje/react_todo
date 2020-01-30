@@ -1,38 +1,53 @@
 import React, { Component } from "react";
 
 import "./styles/EditProfile.css";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { EditUserDetail, Clear } from "./../actions/userActions";
 // import "./styles/signup.css";
 
-export default class EditProfile extends Component {
+class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      password: "",
-      dob: "",
-      address: "",
-      phoneNumber: ""
+      user: {
+        firstName: this.props.user.firstName,
+        lastName: this.props.user.lastName,
+        dob: this.props.user.dob,
+        address: this.props.user.address,
+        phoneNumber: this.props.user.phoneNumber
+      }
     };
   }
   HandleInputChanges = e => {
     const targetName = e.target.name;
     const targetValue = e.target.value;
     this.setState(() => ({
-      [targetName]: targetValue
+      user: { ...this.state.user, [targetName]: targetValue }
     }));
   };
-  HandleSubmit = e => {
+  HandleSave = e => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.EditUserDetail(this.state.user);
   };
+  HandleCancel = e => {
+    this.props.Clear();
+    this.props.history.push("/todos");
+  };
+  componentDidMount() {
+    this.props.Clear();
+  }
+  componentDidUpdate() {
+    if (this.props.error === "no error") {
+      this.props.Clear();
+      this.props.history.push("/todos");
+    }
+  }
   render() {
     return (
-      <div className="EditProfile_modal">
-        <div className="EditProfile_modalContent">
-          <button className="close">X</button>
+      <div className="EditProfile_wrapper">
+        <div className="EditProfile">
           <h1>Edit Your Profile</h1>
           <p></p>
           <form onSubmit={this.HandleSubmit}>
@@ -43,7 +58,7 @@ export default class EditProfile extends Component {
                 name="firstName"
                 autoFocus={true}
                 required={true}
-                value={this.state.firstName}
+                value={this.state.user.firstName}
                 onChange={this.HandleInputChanges}
                 placeholder="First Name"
               />
@@ -54,42 +69,9 @@ export default class EditProfile extends Component {
                 type="text"
                 name="lastName"
                 required={true}
-                value={this.state.lastName}
+                value={this.state.user.lastName}
                 onChange={this.HandleInputChanges}
                 placeholder="Last Name"
-              />
-            </div>
-            <div>
-              <p className="show_hide">Username</p>
-              <input
-                type="text"
-                name="username"
-                required={true}
-                value={this.state.username}
-                onChange={this.HandleInputChanges}
-                placeholder="Username"
-              />
-            </div>
-            <div>
-              <p className="show_hide">Email</p>
-              <input
-                type="email"
-                name="email"
-                required={true}
-                value={this.state.email}
-                onChange={this.HandleInputChanges}
-                placeholder="Email"
-              />
-            </div>
-            <div>
-              <p className="show_hide">Password</p>
-              <input
-                type="password"
-                name="password"
-                required={true}
-                value={this.state.password}
-                onChange={this.HandleInputChanges}
-                placeholder="Password"
               />
             </div>
             <div>
@@ -98,7 +80,7 @@ export default class EditProfile extends Component {
                 type="date"
                 name="dob"
                 required={true}
-                value={this.state.dob}
+                value={this.state.user.dob}
                 onChange={this.HandleInputChanges}
                 placeholder="Date of Birth"
               />
@@ -109,7 +91,7 @@ export default class EditProfile extends Component {
                 type="text"
                 name="address"
                 required={true}
-                value={this.state.address}
+                value={this.state.user.address}
                 onChange={this.HandleInputChanges}
                 placeholder="Address"
               />
@@ -117,18 +99,45 @@ export default class EditProfile extends Component {
             <div>
               <p className="show_hide">Phone Number</p>
               <input
-                type="number"
+                type="tel"
                 name="phoneNumber"
                 required={true}
-                value={this.state.phoneNumber}
+                value={this.state.user.phoneNumber}
                 onChange={this.HandleInputChanges}
                 placeholder="Phone Number"
               />
             </div>
-            <button type="submit">Sign Up</button>
+            <div className="EditProfile_btn">
+              <button onClick={this.HandleSave} disabled={this.props.isLoading}>
+                Save
+              </button>
+              <button onClick={this.HandleCancel}>Cancel</button>
+            </div>
+            {this.props.error && (
+              <p className="edit_profile_error">{this.props.error}</p>
+            )}
           </form>
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.User.user,
+    error: state.User.error,
+    isLoading: state.User.isLoading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ EditUserDetail, Clear }, dispatch);
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(EditProfile)
+);

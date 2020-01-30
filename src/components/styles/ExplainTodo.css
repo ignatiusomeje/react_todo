@@ -1,0 +1,78 @@
+.Explain_section p::after {
+  content: "";
+  display: block;
+  margin: 20px auto;
+  color: red;
+  border-bottom: 1px solid;
+  width: 30%;
+}
+
+.Explain_section p {
+  text-align: center;
+  padding: 3px;
+  font-size: 1.5em;
+}
+
+.Explain_section h2 {
+  text-align: center;
+  font-size: 2em;
+}
+
+.Explain_section_images {
+  width: calc(100% - 10px);
+  height: 30vh;
+  display: flex;
+}
+.Explain_section_img {
+  width: 30%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+.img1 {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./../../images/tasks-4026398_1280.jpg") center no-repeat;
+  background-size: cover;
+  height: 100%;
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.726);
+  border-radius: 3px;
+}
+
+.img2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./../../images/checklist-1266989.svg") center no-repeat;
+  background-size: cover;
+  height: 100%;
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.726);
+  border-radius: 3px;
+}
+
+.img3 {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./../../images/todo-list-297195.svg") center no-repeat;
+  background-size: cover;
+  height: 100%;
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.726);
+  border-radius: 3px;
+}
+@media all and (max-width: 600px) {
+  .Explain_section_images {
+    height: 200vh;
+    flex-direction: column;
+    width: calc(100% - 20px);
+    padding: 0 9px;
+  }
+  .Explain_section_img {
+    width: 100%;
+  }
+  .Explain_section p {
+    text-align: left;
+    padding: 0 9px;
+    font-size: 1.5em;
+  }
+
+  .Explain_section h2 {
+    text-align: center;
+    padding: 0 7px;
+    font-size: 2em;
+  }
+}

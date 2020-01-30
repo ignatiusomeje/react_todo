@@ -11,6 +11,7 @@ class CreateTodo extends Component {
     super(props);
     this.state = {
       todo: { activity: "" },
+      token: this.props.token,
       error: null
     };
   }
@@ -36,7 +37,7 @@ class CreateTodo extends Component {
         } characters`
       }));
     } else {
-      this.props.CreatesTodo(this.state.todo);
+      this.props.CreatesTodo(this.state.todo, this.state.token);
       e.stopPropagation();
       this.props.history.push("/todos");
     }
@@ -85,7 +86,8 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = state => {
   return {
-    createError: state.Todos.todoError
+    createError: state.Todos.todoError,
+    token: state.User.user.token.token
   };
 };
 export default withRouter(

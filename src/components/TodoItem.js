@@ -8,49 +8,13 @@ import {
   IsDoneTodo,
   FetchAllTodos
 } from "./../actions/TodoActions";
-// activity: {
-//   type: String,
-//   required: true,
-//   trim: true,
-//   minlength: 5,
-// },
-// CreatedAt: {
-//   type: Date,
-//   default: new Date()
-// },
-// isDone: {
-//   type: Boolean,
-//   required: true,
-//   default: false,
-// },
-// isDoneDate: {
-//   type: Date,
-//   default: null,
-// },
-// creator: {
-//   type: mongoose.Schema.Types.ObjectId,
-//   required: true,
-//   trim: true,
-// },
-// isDeleted: {
-//   type: Boolean,
-//   default: false
-// },
-// durationCreatedAt:{
-//   type: String,
-//   default: null,
-// },
-// durationDoneAt:{
-//   type: String,
-//   default: null,
-// }
 
 class TodoItem extends Component {
   HandleDeleteBtn = () => {
-    this.props.DeleteTodo(this.props.todo._id);
+    this.props.DeleteTodo(this.props.todo._id, this.props.token);
   };
   HandleDoneBtn = () => {
-    this.props.IsDoneTodo(this.props.todo);
+    this.props.IsDoneTodo(this.props.todo, this.props.token);
   };
   render() {
     return (
@@ -120,9 +84,15 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    token: state.User.user.token.token
+  };
+};
+
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(TodoItem)
 );

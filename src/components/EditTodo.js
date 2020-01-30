@@ -13,7 +13,8 @@ class EditTodo extends Component {
       update: {
         activity: "",
         _Id: ""
-      }
+      },
+      token: this.props.token
     };
   }
   handleOnInputChange = e => {
@@ -38,12 +39,12 @@ class EditTodo extends Component {
     return null;
   }
   componentDidMount() {
-    this.props.FetchOneTodo(this.props.match.params.id);
+    this.props.FetchOneTodo(this.props.match.params.id, this.state.token);
   }
   handleOnSubmit = e => {
     e.preventDefault();
     if (this.state.update.activity !== this.props.viewedTodo.activity) {
-      this.props.IsEditActivity(this.state.update);
+      this.props.IsEditActivity(this.state.update, this.state.token);
     }
     this.props.history.push("/todos");
   };
@@ -86,7 +87,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    viewedTodo: state.Todos.viewedTodo
+    viewedTodo: state.Todos.viewedTodo,
+    token: state.User.user.token.token
   };
 };
 export default withRouter(

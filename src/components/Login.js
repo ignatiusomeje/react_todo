@@ -34,6 +34,12 @@ class LoginPage extends Component {
 
     if (!button) {
       this.props.Login(this.state.form);
+      this.setState(() => ({
+        form: {
+          username: "",
+          password: ""
+        }
+      }));
     }
   };
   componentDidUpdate() {
@@ -91,7 +97,7 @@ class LoginPage extends Component {
                 <p className="signup_error">{this.props.error}</p>
               )}
               <p className="login_forgot">
-                Forgot your password? then click on{" "}
+                Forgot your password? then click on &nbsp;
                 <Link to="/forgotpassword">Forgot Password</Link> to reset your
                 password
               </p>

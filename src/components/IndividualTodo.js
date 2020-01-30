@@ -11,12 +11,12 @@ import { connect } from "react-redux";
 
 class IndividualTodo extends Component {
   HandleDeleteBtn = e => {
-    this.props.DeleteTodo(this.props.todo._id);
+    this.props.DeleteTodo(this.props.todo._id, this.props.token);
     e.stopPropagation();
     this.props.history.push("/todos");
   };
   HandleDoneBtn = () => {
-    this.props.ViewTodo_IsDone(this.props.todo);
+    this.props.ViewTodo_IsDone(this.props.todo, this.props.token);
   };
   HandleOnClick = e => {
     e.preventDefault();
@@ -24,8 +24,7 @@ class IndividualTodo extends Component {
     this.props.history.push("/todos");
   };
   componentDidMount() {
-    console.log(this.props.todo._id);
-    this.props.FetchOneTodo(this.props.match.params.id);
+    this.props.FetchOneTodo(this.props.match.params.id, this.props.token);
   }
   render() {
     return (
@@ -55,7 +54,10 @@ class IndividualTodo extends Component {
               {this.props.todo.isDone ? null : (
                 <button onClick={this.HandleDoneBtn}>Done</button>
               )}
-              <button className="close_btn" onClick={this.HandleOnClick}> Close</button>
+              <button className="close_btn" onClick={this.HandleOnClick}>
+                {" "}
+                Close
+              </button>
             </p>
             <p className="todo_activity">
               {this.props.todo.activity}
@@ -71,7 +73,8 @@ class IndividualTodo extends Component {
 
 const mapStateToProps = state => {
   return {
-    todo: state.Todos.viewedTodo
+    todo: state.Todos.viewedTodo,
+    token: state.User.user.token.token
   };
 };
 

@@ -18,6 +18,8 @@ import VerifyUserAccount from "./components/VerifyUserAccount";
 import IndividualTodo from "./components/IndividualTodo";
 import ShowNotVerified from "./components/VerifyAccount";
 import EditTodo from "./components/EditTodo";
+import Profile from "./components/Profile";
+import IndexPage from "./components/IndexPage";
 
 function App() {
   // i'm getting the exact location that we are in using this method useLocation();
@@ -36,25 +38,52 @@ function App() {
       working. so in the location props i'm adding the background to it if the
       background has a value else the location. */}
       <Switch location={background || location}>
-        <Route path="/signup" children={<Signup />} />
-        <Route path="/login" children={<Login />} />
-        <Route path="/unverified" children={<ShowNotVerified />} />
+        <Route exact={true} path="/" children={<IndexPage />} />
+        <Route exact={true} path="/signup" children={<Signup />} />
+        <Route exact={true} path="/login" children={<Login />} />
+        <Route exact={true} path="/unverified" children={<ShowNotVerified />} />
+
+        {/* <Route path="/profile" children={<Profile />} /> */}
+
         <Route exact={true} path="/todos" children={<Todo />} />
         {/* <Route path="/todos/new" children={<CreateTodo />} /> */}
         {/* <Route path="/todos/:id" children={<IndividualTodo value={1} />} /> */}
-        <Route path="/forgotPassword" children={<ForgotPassword />} />
-        <Route path="/edit_profile" children={<EditProfile />} />
-        <Route path="/password/:id" children={<ChangePassword />} />
-        <Route path="user/:email/:token" children={<VerifyUserAccount />} />
+        <Route
+          exact={true}
+          path="/forgotPassword"
+          children={<ForgotPassword />}
+        />
+        <Route exact={true} path="/edit_profile" children={<EditProfile />} />
+        <Route
+          exact={true}
+          path="/password/:id"
+          children={<ChangePassword />}
+        />
+        <Route
+          exact={true}
+          path="user/:email/:token"
+          children={<VerifyUserAccount />}
+        />
         <Route children={<ErrorPage />} />
       </Switch>
-      {background && <Route path="/todo/edit/:id" children={<EditTodo />} />}
-
       {background && (
-        <Route path="/todo/:id" exact children={<IndividualTodo value={1} />} />
+        <Route exact={true} path="/todo/edit/:id" children={<EditTodo />} />
       )}
 
-      {background && <Route path="/todos/new" children={<CreateTodo />} />}
+      {background && (
+        <Route
+          exact={true}
+          path="/todo/:id"
+          children={<IndividualTodo value={1} />}
+        />
+      )}
+      {background && (
+        <Route exact={true} path="/profile" children={<Profile />} />
+      )}
+
+      {background && (
+        <Route exact={true} path="/todos/new" children={<CreateTodo />} />
+      )}
     </div>
   );
 }

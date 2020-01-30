@@ -5,6 +5,8 @@ import store from "./store";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import "react-app-polyfill/ie9";
+import "react-app-polyfill/stable";
 
 const Root = () => {
   return (

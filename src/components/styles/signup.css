@@ -2,14 +2,14 @@
 .login {
   margin: 30px auto;
   width: 50vw;
-  padding: 50px;
+  padding: 20px 50px 50px 50px;
   background: rgba(255, 255, 255, 0.623);
   border-radius: 15px;
   box-shadow: 0 0 2px;
 }
 .signup div,
 .login div,
-.EditProfile_modalContent div,
+.EditProfile div,
 .CreateTodo_modalContent div {
   display: flex;
   font-size: 1em;
@@ -23,7 +23,7 @@
 }
 .signup input,
 .login input,
-.EditProfile_modalContent input,
+.EditProfile input,
 .CreateTodo_modalContent input {
   width: 70%;
   border: 0;
@@ -33,13 +33,13 @@
 }
 .signup form:last-child,
 .login form:last-child,
-.EditProfile_modalContent form:last-child,
+.EditProfile form:last-child,
 .CreateTodo_modalContent form:last-child {
   margin-bottom: 30px;
 }
 .signup input:focus,
 .login input:focus,
-.EditProfile_modalContent input:focus .CreateTodo_modalContent input:focus {
+.EditProfile input:focus .CreateTodo_modalContent input:focus {
   outline: none;
 }
 .signup button,
@@ -56,7 +56,7 @@
 }
 .login input::placeholder,
 .signup input::placeholder,
-.EditProfile_modalContent input::placeholder,
+.EditProfile input::placeholder,
 .CreateTodo_modalContent input::placeholder {
   opacity: 0;
 }
@@ -94,7 +94,7 @@
   }
   .signup div,
   .login div,
-  .EditProfile_modalContent div,
+  .EditProfile div,
   .CreateTodo_modalContent div {
     display: block;
     height: 30px;
@@ -104,13 +104,15 @@
     padding-bottom: 5px;
   }
   .signup div .login div,
-  .EditProfile_modalContent div,
+  .EditProfile div,
   .CreateTodo_modalContent div {
     font-size: 1.5em;
   }
+
+  /* makes the div surrounding each input to show a single border-buttom line */
   .signup input,
   .login input,
-  .EditProfile_modalContent input,
+  .EditProfile input,
   .CreateTodo_modalContent input {
     width: 100%;
     border: 1px solid;
@@ -119,25 +121,33 @@
     border: 0;
     border-bottom: 1px solid;
   }
+
+  /* handles the placeholder of all inputs */
   .login input::placeholder,
   .signup input::placeholder,
-  .EditProfile_modalContent input::placeholder,
+  .EditProfile input::placeholder,
   .CreateTodo_modalContent input::placeholder {
     opacity: 1;
     font-weight: bold;
     font-size: 1.5em;
   }
+
+  /* hamdles if label of p tag is to show or hide itself */
   .show_hide {
     visibility: hidden;
     margin: 0px;
   }
+
+  /* handles all H1 titles */
   .signup h1,
   .login h1,
-  .EditProfile_modalContent h1,
+  .EditProfile h1,
   .CreateTodo_modalContent h1 {
     margin: 0px;
     padding: 0px;
   }
+
+  /* styles the login button and the sign up button */
   .signup button,
   .login button {
     width: 100%;

@@ -49,12 +49,6 @@
   color: white;
 }
 
-/* .deleteEdit {
-  width: 900px;
-}
-
-.delete {
-} */
 @media all and (max-width: 600px) {
   .todos_wrapper {
     display: inline-block;
@@ -62,6 +56,9 @@
     margin-bottom: 15px;
     width: 100%;
     height: 293px;
+  }
+  .left_side p:nth-child(1) {
+    margin-right: 0px;
   }
   .left_side {
     border-right: 0;
@@ -75,6 +72,7 @@
   .left_side p:nth-child(2) {
     display: flex;
     justify-content: space-between;
+    padding: 9px;
   }
   .left_side button {
     height: 20px;

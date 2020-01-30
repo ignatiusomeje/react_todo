@@ -1,0 +1,89 @@
+.Profile_modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  overflow: hidden;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.Profile_modalContent {
+  margin: calc(100vw - 92vw) 5% 15% calc(100% - 43%);
+  background: white;
+  width: 40%;
+  border-radius: 10px;
+}
+.Profile_detail {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px 0 15px;
+}
+.close {
+  border: 0;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  background: rgba(0, 0, 0, 0.74);
+  box-shadow: 0 1px 5px black;
+  margin: 2% 0 0 calc(100% - 29px);
+  cursor: pointer;
+}
+.close:focus {
+  outline: none;
+}
+
+.profile_btn {
+  display: flex;
+  justify-content: space-around;
+}
+
+.profile_btn button {
+  padding: 5px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #d63031;
+  color: whitesmoke;
+  font-size: 1.2em;
+}
+
+.lastseen {
+  background: green;
+  color: whitesmoke;
+  width: calc(100% - 5px);
+  text-align: center;
+  margin-bottom: 5px;
+  padding: 3px;
+}
+
+@media all and (max-width: 600px) {
+  .Profile_modal {
+    overflow-y: auto;
+  }
+  .Profile_modalContent {
+    margin: calc(100vw - 81vw) 5% 15% calc(100% - 75%);
+    background: white;
+    width: 70%;
+    padding-left: 0px;
+    border-radius: 10px;
+  }
+  .profile_btn {
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 9px;
+  }
+  .profile_btn button {
+    margin-bottom: 0;
+  }
+  .Profile_detail {
+    margin: 0 15px 15px 15px;
+    flex-direction: column;
+    padding: 0;
+  }
+  .Profile_detail p {
+    padding: 0;
+    margin: 0px;
+  }
+}

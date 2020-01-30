@@ -9,10 +9,14 @@
 .header_navlink {
   margin: 20px;
   color: white;
-  /* color: black; */
   text-decoration: none;
   font-size: 20px;
   padding-bottom: 5px;
+}
+.user_pics {
+  border-radius: 50%;
+  width: 30px;
+  margin-left: calc(100% - 322px);
 }
 .action {
   color: white;
@@ -38,5 +42,8 @@
     text-decoration: none;
     font-size: 17px;
     padding-bottom: 5px;
+  }
+  .user_pics {
+    margin-left: 30%;
   }
 }

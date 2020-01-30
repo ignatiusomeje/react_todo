@@ -12,17 +12,17 @@ export const FETCH_ONE_TODO = "FETCH_ONE_TODO";
 export const FETCH_ONE_TODO_ERROR = "FETCH_ONE_TODO_ERROR";
 export const EDITED_ACTIVITY = "EDITED_ACTIVITY";
 export const EDITED_ACTIVITY_ERROR = "EDITED_ACTIVITY_ERROR";
+export const CLEAR_TODO = "CLEAR_TODO";
 
 const url = "http://localhost:5000/api/v1/todos";
 
-export const CreatesTodo = todo => {
+export const CreatesTodo = (todo, token) => {
   const data = JSON.stringify(todo);
   return dispatch => {
     fetch(url, {
       method: "POST",
       headers: {
-        Bearer:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTBkOWRmNGRmOWU3MzBlYmQ4N2YwZDEiLCJ0aW1lIjoiMjAyMC0wMS0wMlQxNjoyNTozOC41MjJaIiwiYWNjZXNzIjoiQmVhcmVyIiwiaWF0IjoxNTc3OTgyMzM4fQ.gBZv1PXfGnwMZzn2fNjnRCK59dEnOYUeRm9W2zW5E2c",
+        Bearer: token,
         "Content-Type": "application/json"
       },
       body: data
@@ -40,12 +40,11 @@ export const CreatesTodo = todo => {
   };
 };
 
-export const FetchAllTodos = () => {
+export const FetchAllTodos = token => {
   return dispatch => {
     fetch(url, {
       headers: {
-        Bearer:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTBkOWRmNGRmOWU3MzBlYmQ4N2YwZDEiLCJ0aW1lIjoiMjAyMC0wMS0wMlQxNjoyNTozOC41MjJaIiwiYWNjZXNzIjoiQmVhcmVyIiwiaWF0IjoxNTc3OTgyMzM4fQ.gBZv1PXfGnwMZzn2fNjnRCK59dEnOYUeRm9W2zW5E2c"
+        Bearer: token
       }
     })
       .then(res => res.json())
@@ -72,13 +71,12 @@ export const FetchAllTodos = () => {
 
 //deletes a single todo from the todo list
 
-export const DeleteTodo = id => {
+export const DeleteTodo = (id, token) => {
   return dispatch => {
     fetch(`${url}/${id}`, {
       method: "DELETE",
       headers: {
-        Bearer:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTBkOWRmNGRmOWU3MzBlYmQ4N2YwZDEiLCJ0aW1lIjoiMjAyMC0wMS0wMlQxNjoyNTozOC41MjJaIiwiYWNjZXNzIjoiQmVhcmVyIiwiaWF0IjoxNTc3OTgyMzM4fQ.gBZv1PXfGnwMZzn2fNjnRCK59dEnOYUeRm9W2zW5E2c"
+        Bearer: token
       }
     })
       .then(res => res.json())
@@ -105,15 +103,14 @@ export const DeleteTodo = id => {
 
 // allows user to tell done todos
 
-export const IsDoneTodo = todo => {
+export const IsDoneTodo = (todo, token) => {
   return dispatch => {
     const data = JSON.stringify({ isDone: true });
     fetch(`${url}/${todo._id}`, {
       method: "PATCH",
       body: data,
       headers: {
-        Bearer:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTBkOWRmNGRmOWU3MzBlYmQ4N2YwZDEiLCJ0aW1lIjoiMjAyMC0wMS0wMlQxNjoyNTozOC41MjJaIiwiYWNjZXNzIjoiQmVhcmVyIiwiaWF0IjoxNTc3OTgyMzM4fQ.gBZv1PXfGnwMZzn2fNjnRCK59dEnOYUeRm9W2zW5E2c",
+        Bearer: token,
         "Content-Type": "application/json"
       }
     })
@@ -139,17 +136,23 @@ export const IsDoneTodo = todo => {
   };
 };
 
+// clears all Todos in the store
+export const ClearTodo = () => {
+  return {
+    type: CLEAR_TODO
+  };
+};
+
 // allows user to tell edit an Activity
 
-export const IsEditActivity = ({ activity, _id }) => {
+export const IsEditActivity = ({ activity, _id }, token) => {
   return dispatch => {
     const data = JSON.stringify({ activity });
     fetch(`${url}/${_id}`, {
       method: "PATCH",
       body: data,
       headers: {
-        Bearer:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTBkOWRmNGRmOWU3MzBlYmQ4N2YwZDEiLCJ0aW1lIjoiMjAyMC0wMS0wMlQxNjoyNTozOC41MjJaIiwiYWNjZXNzIjoiQmVhcmVyIiwiaWF0IjoxNTc3OTgyMzM4fQ.gBZv1PXfGnwMZzn2fNjnRCK59dEnOYUeRm9W2zW5E2c",
+        Bearer: token,
         "Content-Type": "application/json"
       }
     })
@@ -177,15 +180,14 @@ export const IsEditActivity = ({ activity, _id }) => {
 
 //update Done Todo from view Todo Profile
 
-export const ViewTodo_IsDone = todo => {
+export const ViewTodo_IsDone = (todo, token) => {
   return dispatch => {
     const data = JSON.stringify({ isDone: true });
     fetch(`${url}/${todo._id}`, {
       method: "PATCH",
       body: data,
       headers: {
-        Bearer:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTBkOWRmNGRmOWU3MzBlYmQ4N2YwZDEiLCJ0aW1lIjoiMjAyMC0wMS0wMlQxNjoyNTozOC41MjJaIiwiYWNjZXNzIjoiQmVhcmVyIiwiaWF0IjoxNTc3OTgyMzM4fQ.gBZv1PXfGnwMZzn2fNjnRCK59dEnOYUeRm9W2zW5E2c",
+        Bearer: token,
         "Content-Type": "application/json"
       }
     })
@@ -212,12 +214,11 @@ export const ViewTodo_IsDone = todo => {
 };
 
 // fetches one Todo for the user
-export const FetchOneTodo = id => {
+export const FetchOneTodo = (id, token) => {
   return dispatch => {
     fetch(`${url}/${id}`, {
       headers: {
-        Bearer:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTBkOWRmNGRmOWU3MzBlYmQ4N2YwZDEiLCJ0aW1lIjoiMjAyMC0wMS0wMlQxNjoyNTozOC41MjJaIiwiYWNjZXNzIjoiQmVhcmVyIiwiaWF0IjoxNTc3OTgyMzM4fQ.gBZv1PXfGnwMZzn2fNjnRCK59dEnOYUeRm9W2zW5E2c"
+        Bearer: token
       }
     })
       .then(res => res.json())
