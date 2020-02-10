@@ -5,7 +5,7 @@ import "./styles/signup.css";
 import "./styles/SignInSignOut.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { CreateUser, Clear } from "./../actions/userActions";
+import { CreateUser, Clear, Logout } from "./../actions/userActions";
 import IndexHeader from "./IndexHeader";
 
 class Signup extends Component {
@@ -31,6 +31,7 @@ class Signup extends Component {
       form: { ...this.state.form, [targetName]: targetValue }
     }));
   };
+
   HandleSubmit = e => {
     e.preventDefault();
     const button = document
@@ -42,12 +43,13 @@ class Signup extends Component {
     }
   };
   componentDidUpdate() {
-    if (this.props.error === "no error") {
+    if (this.props.error === null && this.props.notVerified === true) {
       return this.props.history.push("/unverified");
     }
   }
   componentDidMount() {
     this.props.Clear();
+    this.props.Logout();
   }
   render() {
     return (
@@ -169,12 +171,13 @@ class Signup extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ CreateUser, Clear }, dispatch);
+  return bindActionCreators({ CreateUser, Clear, Logout }, dispatch);
 };
 
 const mapStateToProps = state => {
   return {
     error: state.User.error,
+    notVerified: state.User.isNotVerify,
     isLoading: state.User.isLoading
   };
 };

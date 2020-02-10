@@ -13,32 +13,34 @@ import {
   FETCH_ONE_TODO_ERROR,
   EDITED_ACTIVITY,
   EDITED_ACTIVITY_ERROR,
-  CLEAR_TODO
+  CLEAR_TODO,
+  ISLOADING
 } from "./../actions/TodoActions";
 
 const INITIAL_TODO_STATE = {
   todo: [],
   todoError: null,
-  viewedTodo: {}
+  viewedTodo: {},
+  isLoading: false
 };
 export default function TodoReducer(state = INITIAL_TODO_STATE, action) {
   switch (action.type) {
     case CREATE_TODO:
       return { ...state, todo: [action.payload.message, ...state.todo] };
-    case CREATE_TODO_ERROR:
-      return { ...state, todoError: action.payload.message };
+
     case FETCH_ALL_TODO:
       return {
         ...state,
-        todo: [...state.todo, ...action.payload.message]
+        todo: [...state.todo, ...action.payload.message],
+        isLoading: false
       };
+
     case CLEAR_TODO:
       return {
         ...state,
-        todo: []
+        todo: [],
+        todoError: null
       };
-    case FETCH_ALL_TODO_ERROR:
-      return { ...state, todoError: action.payload.message };
 
     case VIEW_TODO_ISDONE:
       const view_todoPosition = state.todo.findIndex(
@@ -97,11 +99,14 @@ export default function TodoReducer(state = INITIAL_TODO_STATE, action) {
         ]
       };
 
+    case DELETE_TODO_ERROR:
+    case FETCH_ALL_TODO_ERROR:
+    case CREATE_TODO_ERROR:
     case EDITED_ACTIVITY_ERROR:
     case DONE_TODO_ERROR:
     case FETCH_ONE_TODO_ERROR:
     case VIEW_TODO_ISDONE_ERROR:
-      return { ...state, todoError: action.payload.message };
+      return { ...state, todoError: action.payload.message, isLoading: false };
 
     case DELETE_TODO:
       const deletePosition = state.todo.findIndex(
@@ -114,8 +119,10 @@ export default function TodoReducer(state = INITIAL_TODO_STATE, action) {
           ...state.todo.slice(deletePosition + 1)
         ]
       };
-    case DELETE_TODO_ERROR:
-      return { ...state, todoError: action.payload.message };
+
+    case ISLOADING:
+      return { ...state, isLoading: action.payload.isLoading };
+
     default:
       return state;
   }

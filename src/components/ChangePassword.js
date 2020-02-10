@@ -3,7 +3,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { EditUserDetail, Clear } from "./../actions/userActions";
+import {
+  ChangeUserPassword,
+  IsEdit,
+  IsNotEdit,
+  Clear
+} from "./../actions/userActions";
 
 import "./styles/EditProfile.css";
 import "./styles/ChangePassword.css";
@@ -44,26 +49,37 @@ class ChangePassword extends Component {
         error_status: true
       }));
     } else {
-      this.props.EditUserDetail(this.state.user, this.props.token);
+      this.props.ChangeUserPassword(
+        this.state.user,
+        this.props.match.params.id
+      );
+      this.props.IsNotEdit();
     }
   };
 
   HandleCancel = e => {
+    e.preventDefault();
     this.props.Clear();
-    this.props.history.push("/");
+    this.props.IsNotEdit();
+    this.props.history.push("/login");
   };
 
   componentDidMount() {
     this.props.Clear();
+    this.props.IsEdit();
     this.setState(() => ({
+      ...this.state,
       error: ""
     }));
   }
 
   componentDidUpdate() {
-    if (this.props.error === "no error") {
+    if (this.props.fetchInfo !== null) {
+      this.props.IsNotEdit();
       this.props.Clear();
-      this.props.history.push("/login");
+      this.props.history.push("/todos");
+    } else {
+      this.props.IsEdit();
     }
   }
 
@@ -113,14 +129,11 @@ class ChangePassword extends Component {
                 placeholder=" Verify Password"
               />
             </div>
-            <div
-            // className="EditProfile_btn"
-            >
+            <div>
               <button
                 className={this.state.error ? "disabledbtn" : ""}
                 onClick={this.HandleSave}
                 disabled={
-                  // false
                   this.props.isLoading || this.state.error_status ? true : false
                 }
               >
@@ -142,14 +155,21 @@ class ChangePassword extends Component {
 
 const mapStateToProps = state => {
   return {
-    error: state.User.error,
-    isLoading: state.User.isLoading,
-    token: state.User.user.token.token
+    fetchInfo: state.User.fetchInfo,
+    error: state.User.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ EditUserDetail, Clear }, dispatch);
+  return bindActionCreators(
+    {
+      ChangeUserPassword,
+      IsEdit,
+      IsNotEdit,
+      Clear
+    },
+    dispatch
+  );
 };
 
 export default withRouter(

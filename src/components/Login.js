@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import "./styles/SignInSignOut.css";
 import "./styles/signup.css";
-import { Login, Clear } from "./../actions/userActions";
+import { Login, Clear, Logout } from "./../actions/userActions";
 import IndexHeader from "./IndexHeader";
 
 class LoginPage extends Component {
@@ -43,14 +43,15 @@ class LoginPage extends Component {
     }
   };
   componentDidUpdate() {
-    if (this.props.error === "no error") {
+    if (this.props.error === null && this.props.isLoggedIn) {
       return this.props.history.push("/todos");
-    } else if (this.props.isVerify) {
+    } else if (this.props.isNotVerify) {
       return this.props.history.push("/unverified");
     }
   }
   componentDidMount() {
     this.props.Clear();
+    this.props.Logout();
   }
   render() {
     return (
@@ -110,14 +111,15 @@ class LoginPage extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ Login, Clear }, dispatch);
+  return bindActionCreators({ Login, Clear, Logout }, dispatch);
 };
 
 const mapStateToProps = state => {
   return {
     error: state.User.error,
     isLoading: state.User.isLoading,
-    isVerify: state.User.isNotVerify
+    isNotVerify: state.User.isNotVerify,
+    isLoggedIn: state.User.isLoggedIn
   };
 };
 

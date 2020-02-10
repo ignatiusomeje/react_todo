@@ -7,9 +7,6 @@ import { VerifyAccount } from "../actions/userActions";
 
 class ShowNotVerified extends Component {
   componentDidMount() {
-    while (this.props.verify) {
-      return <p>Loading......</p>;
-    }
     this.props.VerifyAccount();
   }
   render() {
@@ -18,7 +15,7 @@ class ShowNotVerified extends Component {
         <IndexHeader />
         <div className="wrapper_verify">
           <h1>Welcome OnBoard</h1>
-          <p>{this.props.verify}</p>
+          <p>{this.props.verify ? this.props.verify : this.props.fetchInfo}</p>
         </div>
       </div>
     );
@@ -26,9 +23,9 @@ class ShowNotVerified extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
-    verify: state.User.verify
+    verify: state.User.verify,
+    fetchInfo: state.User.fetchInfo
   };
 };
 

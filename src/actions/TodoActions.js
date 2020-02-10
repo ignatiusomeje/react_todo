@@ -13,6 +13,7 @@ export const FETCH_ONE_TODO_ERROR = "FETCH_ONE_TODO_ERROR";
 export const EDITED_ACTIVITY = "EDITED_ACTIVITY";
 export const EDITED_ACTIVITY_ERROR = "EDITED_ACTIVITY_ERROR";
 export const CLEAR_TODO = "CLEAR_TODO";
+export const ISLOADING = "ISLOADING";
 
 const url = "http://localhost:5000/api/v1/todos";
 
@@ -42,6 +43,7 @@ export const CreatesTodo = (todo, token) => {
 
 export const FetchAllTodos = token => {
   return dispatch => {
+    dispatch({ type: ISLOADING, payload: { isLoading: true } });
     fetch(url, {
       headers: {
         Bearer: token

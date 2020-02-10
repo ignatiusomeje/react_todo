@@ -1,7 +1,7 @@
 .todos_wrapper {
   display: flex;
   width: 75%;
-  height: 180px;
+  min-height: 180px;
   margin: 0 auto;
   margin-bottom: 20px;
   border-radius: 15px;
@@ -33,6 +33,7 @@
   line-height: 20px;
   margin: 4px;
   padding: 2px;
+  word-break: break-all;
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
@@ -49,6 +50,28 @@
   color: white;
 }
 
+/* .oneButton  */
+.todo_buttons .wide_button {
+  width: 100%;
+  background: rgba(0, 128, 0, 0.829);
+  color: whitesmoke;
+  padding: 2px 0;
+}
+
+.left_side .viewTodo {
+  width: 100px;
+  height: 25px;
+}
+
+.left_side .viewTodoGreen {
+  background-color: rgba(0, 128, 0, 0.829);
+  color: whitesmoke;
+}
+
+.left_side .viewTodoRed {
+  background-color: rgba(255, 0, 0, 0.918);
+  color: whitesmoke;
+}
 @media all and (max-width: 600px) {
   .todos_wrapper {
     display: inline-block;
@@ -56,6 +79,7 @@
     margin-bottom: 15px;
     width: 100%;
     height: 293px;
+    min-height: 0;
   }
   .left_side p:nth-child(1) {
     margin-right: 0px;
@@ -89,6 +113,9 @@
     height: 90px;
     padding: 0 9px 15px 9px;
     padding-bottom: 13px;
+  }
+  .oneButton .wide_button {
+    margin-top: -9px;
   }
 }
 

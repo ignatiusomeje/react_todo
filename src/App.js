@@ -20,6 +20,7 @@ import ShowNotVerified from "./components/VerifyAccount";
 import EditTodo from "./components/EditTodo";
 import Profile from "./components/Profile";
 import IndexPage from "./components/IndexPage";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   // i'm getting the exact location that we are in using this method useLocation();
@@ -45,7 +46,9 @@ function App() {
 
         {/* <Route path="/profile" children={<Profile />} /> */}
 
-        <Route exact={true} path="/todos" children={<Todo />} />
+        <PrivateRoute exact={true} path="/todos" children={<Todo />} />
+        {/* <Todo />
+        </PrivateRoute> */}
         {/* <Route path="/todos/new" children={<CreateTodo />} /> */}
         {/* <Route path="/todos/:id" children={<IndividualTodo value={1} />} /> */}
         <Route
@@ -53,7 +56,11 @@ function App() {
           path="/forgotPassword"
           children={<ForgotPassword />}
         />
-        <Route exact={true} path="/edit_profile" children={<EditProfile />} />
+        <PrivateRoute
+          exact={true}
+          path="/edit_profile"
+          children={<EditProfile />}
+        />
         <Route
           exact={true}
           path="/password/:id"
@@ -61,28 +68,37 @@ function App() {
         />
         <Route
           exact={true}
-          path="user/:email/:token"
+          path="/user/:email/:token"
           children={<VerifyUserAccount />}
         />
+
         <Route children={<ErrorPage />} />
       </Switch>
       {background && (
-        <Route exact={true} path="/todo/edit/:id" children={<EditTodo />} />
+        <PrivateRoute
+          exact={true}
+          path="/todo/edit/:id"
+          children={<EditTodo />}
+        />
       )}
 
       {background && (
-        <Route
+        <PrivateRoute
           exact={true}
           path="/todo/:id"
           children={<IndividualTodo value={1} />}
         />
       )}
       {background && (
-        <Route exact={true} path="/profile" children={<Profile />} />
+        <PrivateRoute exact={true} path="/profile" children={<Profile />} />
       )}
 
       {background && (
-        <Route exact={true} path="/todos/new" children={<CreateTodo />} />
+        <PrivateRoute
+          exact={true}
+          path="/todos/new"
+          children={<CreateTodo />}
+        />
       )}
     </div>
   );

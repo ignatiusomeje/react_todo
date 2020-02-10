@@ -8,11 +8,10 @@ import { connect } from "react-redux";
 
 class Todo extends Component {
   componentDidMount() {
+    this.props.ClearTodo();
     this.props.FetchAllTodos(this.props.token);
   }
-  componentWillUnmount() {
-    this.props.ClearTodo();
-  }
+
   render() {
     return (
       <div>
@@ -20,7 +19,12 @@ class Todo extends Component {
         <div className="Todo_wrapper">
           <div>
             <h1> Your Saved Todos</h1>
-            {this.props.todos.length < 1 ? (
+            <div className="loading">
+              {this.props.isLoading && (
+                <img src="images/spinner.gif" alt="Loading GIF" />
+              )}
+            </div>
+            {!this.props.isLoading && this.props.todos.length < 1 ? (
               <p>Sorry, you don't have any todo, so do create one</p>
             ) : (
               this.props.todos.map((todo, index) => {
@@ -41,7 +45,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     todos: state.Todos.todo,
-    token: state.User.user.token.token
+    token: state.User.user.token.token,
+    isLoading: state.Todos.isLoading
   };
 };
 

@@ -16,6 +16,19 @@ class TodoItem extends Component {
   HandleDoneBtn = () => {
     this.props.IsDoneTodo(this.props.todo, this.props.token);
   };
+  // componentDidUpdate() {
+  //   const buttonDiv = document.getElementsByClassName("todo_buttons");
+
+  //   [...buttonDiv].map(buttons => {
+  //     if (buttons.children.length === 1) {
+  //       buttons.classList.add("oneButton");
+  //       const check = document.querySelectorAll(".oneButton > button");
+  //       [...check].map(button => {
+  //         return button.setAttribute("class", "wide_button");
+  //       });
+  //     }
+  //   });
+  // }
   render() {
     return (
       <div className="todos_wrapper">
@@ -37,15 +50,23 @@ class TodoItem extends Component {
                 state: { background: this.props.location }
               }}
             >
-              <button>View Todo</button>
+              <button
+                className={
+                  this.props.todo.isDone
+                    ? "viewTodo  viewTodoGreen"
+                    : "viewTodo viewTodoRed"
+                }
+              >
+                View Todo
+              </button>
             </Link>
           </p>
         </div>
         <div className="right_side">
           <p className="todo_buttons">
             <button
-              // className="deleteEdit"
               onClick={this.HandleDeleteBtn}
+              className={this.props.todo.isDone ? "wide_button" : ""}
             >
               Delete
             </button>
@@ -53,18 +74,20 @@ class TodoItem extends Component {
               <button onClick={this.HandleDoneBtn}>Done</button>
             )}
 
-            <Link
-              to={{
-                pathname: `/todo/edit/${this.props.todo._id}`,
-                state: { background: this.props.location }
-              }}
-            >
-              <button
-              // className="deleteEdit"
+            {this.props.todo.isDone ? null : (
+              <Link
+                to={{
+                  pathname: `/todo/edit/${this.props.todo._id}`,
+                  state: { background: this.props.location }
+                }}
               >
-                Edit
-              </button>
-            </Link>
+                <button
+                // className="deleteEdit"
+                >
+                  Edit
+                </button>
+              </Link>
+            )}
           </p>
           <p className="todo_activities">{this.props.todo.activity}</p>
         </div>

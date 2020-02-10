@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./styles/Profile.css";
 import { connect } from "react-redux";
+import { Logout } from "./../actions/userActions";
+import { bindActionCreators } from "redux";
 // import "./styles/signup.css";
 
 class Profile extends Component {
@@ -10,16 +12,20 @@ class Profile extends Component {
     e.stopPropagation();
     this.props.history.push("/todos");
   };
+
   HandleEditProfileOnClick = e => {
     e.preventDefault();
     e.stopPropagation();
     this.props.history.push("/edit_profile");
   };
+
   HandleLogoutOnClick = e => {
     e.preventDefault();
     e.stopPropagation();
+    this.props.Logout();
     this.props.history.push("/login");
   };
+
   render() {
     return (
       <div className="Profile_modal">
@@ -77,4 +83,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(Profile));
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ Logout }, dispatch);
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Profile)
+);

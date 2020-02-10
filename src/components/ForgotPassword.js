@@ -43,7 +43,7 @@ class ForgotPassword extends Component {
 
   HandleCancel = e => {
     this.props.Clear();
-    this.props.history.push("/");
+    this.props.history.push("/login");
   };
 
   componentDidMount() {
@@ -54,9 +54,9 @@ class ForgotPassword extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.error === "no error") {
-      this.props.Clear();
-      this.props.history.push("/login");
+    if (this.props.fetchInfo !== null) {
+      // this.props.Clear();
+      this.props.history.push("/unverified");
     }
   }
 
@@ -113,8 +113,8 @@ class ForgotPassword extends Component {
 const mapStateToProps = state => {
   return {
     error: state.User.error,
-    isLoading: state.User.isLoading,
-    token: state.User.user.token.token
+    fetchInfo: state.User.fetchInfo,
+    isLoading: state.User.isLoading
   };
 };
 

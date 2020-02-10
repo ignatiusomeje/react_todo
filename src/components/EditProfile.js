@@ -4,7 +4,12 @@ import "./styles/EditProfile.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { EditUserDetail, Clear } from "./../actions/userActions";
+import {
+  EditUserDetail,
+  Clear,
+  IsEdit,
+  IsNotEdit
+} from "./../actions/userActions";
 // import "./styles/signup.css";
 
 class EditProfile extends Component {
@@ -20,6 +25,7 @@ class EditProfile extends Component {
       }
     };
   }
+
   HandleInputChanges = e => {
     const targetName = e.target.name;
     const targetValue = e.target.value;
@@ -27,23 +33,35 @@ class EditProfile extends Component {
       user: { ...this.state.user, [targetName]: targetValue }
     }));
   };
+
   HandleSave = e => {
     e.preventDefault();
-    this.props.EditUserDetail(this.state.user);
+    this.props.EditUserDetail(this.state.user, this.props.user.token.token);
+    this.props.IsNotEdit();
   };
+
   HandleCancel = e => {
+    e.preventDefault();
     this.props.Clear();
+    this.props.IsNotEdit();
     this.props.history.push("/todos");
   };
+
   componentDidMount() {
     this.props.Clear();
+    this.props.IsEdit();
   }
+
   componentDidUpdate() {
-    if (this.props.error === "no error") {
+    if (this.props.fetchInfo !== null) {
+      this.props.IsNotEdit();
       this.props.Clear();
       this.props.history.push("/todos");
+    } else {
+      this.props.IsEdit();
     }
   }
+
   render() {
     return (
       <div className="EditProfile_wrapper">
@@ -126,13 +144,18 @@ class EditProfile extends Component {
 const mapStateToProps = state => {
   return {
     user: state.User.user,
+    fetchInfo: state.User.fetchInfo,
     error: state.User.error,
+    isEditing: state.User.isEditing,
     isLoading: state.User.isLoading
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ EditUserDetail, Clear }, dispatch);
+  return bindActionCreators(
+    { EditUserDetail, Clear, IsEdit, IsNotEdit },
+    dispatch
+  );
 };
 
 export default withRouter(

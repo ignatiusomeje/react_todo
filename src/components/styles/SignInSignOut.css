@@ -11,17 +11,11 @@
   background-position: center;
 }
 
-.bg-login {
-  overflow: hidden;
-  width: 95vw;
-  height: 90vh;
-  margin-bottom: 0;
-}
-
 @media all and (min-width: 600px) {
-  .bg-login {
+  .bg-login,
+  .wrappers {
     padding: 30px;
-
+    overflow: auto;
     width: 100vw;
     height: 100vh;
     background-repeat: no-repeat;
@@ -29,5 +23,16 @@
     position: fixed;
     top: 0;
     bottom: 0;
+  }
+  .bg-login > .login,
+  .wrappers > .signup {
+    margin-top: 5%;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .bg-login > .login,
+  .wrappers > .signup {
+    margin-top: 40px;
   }
 }

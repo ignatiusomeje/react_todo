@@ -13,7 +13,6 @@ const Header = props => {
           pathname: "/todos",
           state: { background: locations }
         }}
-        // to="/todos"
         activeClassName="action"
         className="header_navlink"
       >
@@ -34,11 +33,15 @@ const Header = props => {
           pathname: "/profile",
           state: { background: locations }
         }}
-        // to="/edit_profile"
         className="header_navlink"
         activeClassName="action"
       >
-        <img src={patrick} title="User's Profile" className="user_pics" />
+        <img
+          src={patrick}
+          alt="User's profile avatar"
+          title="User's Profile"
+          className="user_pics"
+        />
       </NavLink>
     </div>
   );

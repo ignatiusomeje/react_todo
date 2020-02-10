@@ -26,6 +26,7 @@ class IndividualTodo extends Component {
   componentDidMount() {
     this.props.FetchOneTodo(this.props.match.params.id, this.props.token);
   }
+
   render() {
     return (
       <div className="Individual_modal">
@@ -50,12 +51,25 @@ class IndividualTodo extends Component {
           </div>
           <div className="right_side">
             <p className="todo_buttons">
-              <button onClick={this.HandleDeleteBtn}>Delete</button>
+              <button
+                onClick={this.HandleDeleteBtn}
+                className={
+                  this.props.todo.isDone ? "wide_button_individual" : ""
+                }
+              >
+                Delete
+              </button>
               {this.props.todo.isDone ? null : (
                 <button onClick={this.HandleDoneBtn}>Done</button>
               )}
-              <button className="close_btn" onClick={this.HandleOnClick}>
-                {" "}
+              <button
+                className={
+                  this.props.todo.isDone
+                    ? "wide_button_individual close_btn"
+                    : "close_btn"
+                }
+                onClick={this.HandleOnClick}
+              >
                 Close
               </button>
             </p>

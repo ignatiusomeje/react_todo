@@ -44,6 +44,7 @@
 }
 .todo_activity {
   line-height: 20px;
+  word-break: break-all;
   margin: 4px;
   padding: 2px;
 }
@@ -64,8 +65,20 @@
   outline: none;
 }
 .close_btn {
-  display: inherit;
+  text-align: center;
 }
+
+.Individual_modal .todo_buttons button {
+  width: 40%;
+}
+
+.Individual_modal .todo_buttons .wide_button_individual {
+  width: 100%;
+  background: rgba(0, 128, 0, 0.829);
+  color: whitesmoke;
+  padding: 2px 0;
+}
+
 @media all and (max-width: 600px) {
   .Individual_modal {
     overflow: auto;

@@ -15,6 +15,7 @@ class CreateTodo extends Component {
       error: null
     };
   }
+
   HandleInputChanges = e => {
     const targetName = e.target.name;
     const targetValue = e.target.value;
@@ -24,6 +25,7 @@ class CreateTodo extends Component {
       }
     }));
   };
+
   HandleSubmit = e => {
     e.preventDefault();
     if (this.state.todo.activity.trim() === "") {
@@ -38,15 +40,19 @@ class CreateTodo extends Component {
       }));
     } else {
       this.props.CreatesTodo(this.state.todo, this.state.token);
+      e.preventDefault();
+
       e.stopPropagation();
       this.props.history.push("/todos");
     }
   };
+
   HandleOnClick = e => {
     e.preventDefault();
     e.stopPropagation();
     this.props.history.push("/todos");
   };
+
   render() {
     return (
       <div className="CreateTodo_modal">
@@ -63,6 +69,7 @@ class CreateTodo extends Component {
               <input
                 name="activity"
                 value={this.state.todo.activity}
+                autoFocus={true}
                 onChange={this.HandleInputChanges}
                 placeholder="New Todo"
               />

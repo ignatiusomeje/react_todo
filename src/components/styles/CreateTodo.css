@@ -68,11 +68,11 @@ input[name="activity"]:focus {
 @media all and (max-width: 600px) {
   .CreateTodo_modal,
   .EditTodo_modal {
-    overflow: auto;
+    overflow: hidden;
   }
   .CreateTodo_modalContent,
   .EditTodo_modalContent {
-    margin: 45% auto;
+    margin: 25% auto;
   }
   .CreateTodo_modalContent button[type="submit"],
   .EditTodo_modalContent button[type="submit"],

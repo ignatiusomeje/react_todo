@@ -1,7 +1,7 @@
 import {
   CREATE_USER,
   CREATE_USER_ERROR,
-  ISLOADING,
+  USER_ISLOADING,
   VERIFY_ACCOUNT,
   LOGIN_USER,
   LOGIN_USER_ERROR,
@@ -9,35 +9,27 @@ import {
   EDIT_USER,
   EDIT_USER_ERROR,
   RESET_PASSWORD_ERROR,
-  RESET_PASSWORD
+  RESET_PASSWORD,
+  VERIFY_USER,
+  VERIFY_USER_ERROR,
+  lOGOUT,
+  ISEDITING,
+  ISNOTEDITING,
+  VERIFY_USER_PASSWORD,
+  VERIFY_USER_PASSWORD_ERROR,
+  CHANGE_PASSWORD_ERROR,
+  CHANGE_PASSWORD
 } from "../actions/userActions";
 
 const INITIAL_STATE = {
-  user: {
-    token: {
-      access: "Bearer",
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTBkOWRmNGRmOWU3MzBlYmQ4N2YwZDEiLCJ0aW1lIjoiMjAyMC0wMS0wMlQxNjoyNTozOC41MjJaIiwiYWNjZXNzIjoiQmVhcmVyIiwiaWF0IjoxNTc3OTgyMzM4fQ.gBZv1PXfGnwMZzn2fNjnRCK59dEnOYUeRm9W2zW5E2c"
-    },
-    lastSeen: "Today at 4:25 PM",
-    lastUpdate: null,
-    isValid: false,
-    authToken: null,
-    _id: "5e0d9df4df9e730ebd87f0d1",
-    firstName: "Ignatius",
-    lastName: "Omeje",
-    username: "mrexcel153",
-    email: "Mrexcel153@gmail.com",
-    password: "$2a$10$W1KFNjpcTFENw4m/x0GRh.z9GCAPogtsWhzcPqPqiEwzoATxbwC.i",
-    dob: "2020-01-30",
-    address: "53 Mount Enugu",
-    phoneNumber: "8167623337"
-  },
-  // {},
+  user: {},
   verify: null,
   isNotVerify: false,
   error: null,
-  isLoading: false
+  isLoading: false,
+  isLoggedIn: false,
+  isEditing: false,
+  fetchInfo: null
 };
 
 export default function UserReducer(state = INITIAL_STATE, action) {
@@ -46,32 +38,90 @@ export default function UserReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         verify: action.payload.message,
-        isLoading: false,
-        error: "no error"
+        isNotVerify: true,
+        isLoading: false
       };
+
+    case VERIFY_USER:
+      return {
+        ...state,
+        user: {},
+        verify: null,
+        isNotVerify: false,
+        isLoading: false
+      };
+
+    case VERIFY_USER_PASSWORD:
+      return {
+        ...state,
+        user: action.payload.message,
+        isLoading: false
+      };
+
+    case ISNOTEDITING:
+      return {
+        ...state,
+        isEditing: false
+      };
+
+    case ISEDITING:
+      return {
+        ...state,
+        isEditing: true
+      };
+
+    case CHANGE_PASSWORD:
     case RESET_PASSWORD:
+      return {
+        ...state,
+        user: {},
+        fetchInfo: action.payload.message,
+        isLoading: false
+      };
+
     case EDIT_USER:
       return {
         ...state,
         user: action.payload.message.details,
-        isLoading: false,
-        error: "no error"
+        fetchInfo: action.payload.message.info,
+        isLoading: false
       };
+
+    case VERIFY_USER_PASSWORD_ERROR:
+    case CHANGE_PASSWORD_ERROR:
+    case VERIFY_USER_ERROR:
     case RESET_PASSWORD_ERROR:
     case EDIT_USER_ERROR:
     case CREATE_USER_ERROR:
-      return { ...state, error: action.payload.message, isLoading: false };
+      return {
+        ...state,
+        error: action.payload.message,
+        isLoading: false
+      };
+
     case VERIFY_ACCOUNT:
       return state;
+
     case LOGIN_USER:
       return {
         ...state,
         user: action.payload.message,
+        verify: null,
         isLoading: false,
-        error: "no error"
+        isLoggedIn: true
       };
+
+    case lOGOUT:
+      return {
+        ...state,
+        user: {},
+        isLoggedIn: false,
+        isLoading: false
+      };
+
     case CLEAR_ERROR:
-      return { ...state, error: null, isNotVerify: false };
+      return { ...state, error: null, isNotVerify: false, fetchInfo: null };
+
     case LOGIN_USER_ERROR:
       if (action.payload.message.includes("verify your account")) {
         return {
@@ -84,11 +134,12 @@ export default function UserReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         error: action.payload.message,
-        isLoading: false,
-        isNotVerify: false
+        isLoading: false
       };
-    case ISLOADING:
+
+    case USER_ISLOADING:
       return { ...state, isLoading: action.payload.isLoading };
+
     default:
       return state;
   }
