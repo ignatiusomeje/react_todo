@@ -3,7 +3,12 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { CreatesTodo } from "./../actions/TodoActions";
+import {
+  CreatesTodo,
+  Clear,
+  IsEdit,
+  IsNotEdit
+} from "./../actions/TodoActions";
 import "./styles/CreateTodo.css";
 
 class CreateTodo extends Component {
@@ -16,13 +21,28 @@ class CreateTodo extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.Clear();
+    this.props.IsEdit();
+    if (this.props.amount === 0) {
+      this.props.history.push("/fund", {
+        background: {
+          hash: "",
+          pathname: "/todos",
+          search: ""
+        }
+      });
+    }
+  }
+
   HandleInputChanges = e => {
     const targetName = e.target.name;
     const targetValue = e.target.value;
     this.setState(() => ({
       todo: {
         [targetName]: targetValue
-      }
+      },
+      error: null
     }));
   };
 
@@ -39,19 +59,25 @@ class CreateTodo extends Component {
         } characters`
       }));
     } else {
-      this.props.CreatesTodo(this.state.todo, this.state.token);
       e.preventDefault();
-
       e.stopPropagation();
-      this.props.history.push("/todos");
+      this.props.CreatesTodo(this.state.todo, this.state.token);
     }
   };
 
   HandleOnClick = e => {
     e.preventDefault();
     e.stopPropagation();
+    this.props.Clear();
+    this.props.IsNotEdit();
     this.props.history.push("/todos");
   };
+
+  componentDidUpdate() {
+    if (this.props.createError === null && !this.props.isEditing) {
+      this.props.history.push("/todos");
+    }
+  }
 
   render() {
     return (
@@ -88,18 +114,20 @@ class CreateTodo extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ CreatesTodo }, dispatch);
+  return bindActionCreators(
+    { CreatesTodo, Clear, IsEdit, IsNotEdit },
+    dispatch
+  );
 }
 
 const mapStateToProps = state => {
   return {
     createError: state.Todos.todoError,
-    token: state.User.user.token.token
+    isEditing: state.Todos.isEditing,
+    token: state.User.user.token.token,
+    amount: state.User.Amount
   };
 };
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(CreateTodo)
+  connect(mapStateToProps, mapDispatchToProps)(CreateTodo)
 );

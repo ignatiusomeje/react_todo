@@ -14,13 +14,17 @@ import {
   EDITED_ACTIVITY,
   EDITED_ACTIVITY_ERROR,
   CLEAR_TODO,
-  ISLOADING
+  CLEAR,
+  ISLOADING,
+  ISEDITING,
+  ISNOTEDITING
 } from "./../actions/TodoActions";
 
 const INITIAL_TODO_STATE = {
   todo: [],
   todoError: null,
   viewedTodo: {},
+  isEditing: false,
   isLoading: false
 };
 export default function TodoReducer(state = INITIAL_TODO_STATE, action) {
@@ -39,6 +43,24 @@ export default function TodoReducer(state = INITIAL_TODO_STATE, action) {
       return {
         ...state,
         todo: [],
+        todoError: null
+      };
+
+    case ISNOTEDITING:
+      return {
+        ...state,
+        isEditing: false
+      };
+
+    case ISEDITING:
+      return {
+        ...state,
+        isEditing: true
+      };
+
+    case CLEAR:
+      return {
+        ...state,
         todoError: null
       };
 

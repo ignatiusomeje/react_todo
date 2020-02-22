@@ -2,10 +2,10 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import "./styles/Header.css";
 import patrick from "./../images/patrick.png";
+import { connect } from "react-redux";
 
 const Header = props => {
   const locations = useLocation();
-  console.log("location header: ", locations);
   return (
     <div className="Header">
       <NavLink
@@ -28,6 +28,7 @@ const Header = props => {
       >
         Create Todo
       </NavLink>
+      <i className="desktop">Amount: &#8358;{props.amount}</i>
       <NavLink
         to={{
           pathname: "/profile",
@@ -43,7 +44,17 @@ const Header = props => {
           className="user_pics"
         />
       </NavLink>
+      <br />
+      <i className="mobile">Amount: &#8358;{props.amount}</i>
     </div>
   );
 };
-export default Header;
+
+const mapStateToProps = state => {
+  console.log(state.User.Amount);
+  return {
+    amount: state.User.Amount
+  };
+};
+
+export default connect(mapStateToProps)(Header);

@@ -40,7 +40,8 @@ input[name="activity"]:focus {
   margin: 10px auto;
 }
 .CreateTodo_modalContent button[type="submit"],
-.EditTodo_modalContent button[type="submit"] {
+.EditTodo_modalContent button[type="submit"],
+.payButton {
   width: 250px;
   padding: 5px;
   border-radius: 10px;
@@ -76,10 +77,11 @@ input[name="activity"]:focus {
   }
   .CreateTodo_modalContent button[type="submit"],
   .EditTodo_modalContent button[type="submit"],
+  .payButton,
   .Cancel {
     width: 100%;
     padding: 10px;
-    margin: 25px 0 0 0;
+    margin: 15px 0 0 0;
     font-size: 1.5em;
     float: none;
     border-radius: 10px;

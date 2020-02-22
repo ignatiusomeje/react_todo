@@ -21,6 +21,7 @@ import EditTodo from "./components/EditTodo";
 import Profile from "./components/Profile";
 import IndexPage from "./components/IndexPage";
 import PrivateRoute from "./components/PrivateRoute";
+import Paystack from "./components/Paystack";
 
 function App() {
   // i'm getting the exact location that we are in using this method useLocation();
@@ -43,6 +44,7 @@ function App() {
         <Route exact={true} path="/signup" children={<Signup />} />
         <Route exact={true} path="/login" children={<Login />} />
         <Route exact={true} path="/unverified" children={<ShowNotVerified />} />
+        {/* <PrivateRoute exact={true} path="/fund" children={<Paystack />} /> */}
 
         {/* <Route path="/profile" children={<Profile />} /> */}
 
@@ -99,6 +101,10 @@ function App() {
           path="/todos/new"
           children={<CreateTodo />}
         />
+      )}
+
+      {background && (
+        <PrivateRoute exact={true} path="/fund" children={<Paystack />} />
       )}
     </div>
   );

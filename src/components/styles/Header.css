@@ -6,6 +6,15 @@
   width: 100%;
   z-index: 1;
 }
+
+.mobile {
+  display: none;
+}
+
+.desktop {
+  display: inline-block;
+}
+
 .header_navlink {
   margin: 20px;
   color: white;
@@ -16,7 +25,8 @@
 .user_pics {
   border-radius: 50%;
   width: 30px;
-  margin-left: calc(100% - 322px);
+  vertical-align: top;
+  margin-left: calc(100% - 470px);
 }
 .action {
   color: white;
@@ -45,5 +55,19 @@
   }
   .user_pics {
     margin-left: 30%;
+  }
+  .mobile {
+    display: inline-block;
+    padding-top: 5px;
+  }
+  .mobile::before {
+    content: "";
+    border-bottom: 1px solid rgba(255, 255, 255, 0.363);
+    margin-bottom: 5px;
+    display: block;
+    width: 95vw;
+  }
+  .desktop {
+    display: none;
   }
 }

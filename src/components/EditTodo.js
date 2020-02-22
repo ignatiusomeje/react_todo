@@ -4,7 +4,13 @@ import "./styles/CreateTodo.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
-import { IsEditActivity, FetchOneTodo } from "./../actions/TodoActions";
+import {
+  IsEditActivity,
+  FetchOneTodo,
+  Clear,
+  IsEdit,
+  IsNotEdit
+} from "./../actions/TodoActions";
 
 class EditTodo extends Component {
   constructor(props) {
@@ -17,7 +23,9 @@ class EditTodo extends Component {
       token: this.props.token
     };
   }
+
   handleOnInputChange = e => {
+    this.props.Clear();
     e.persist();
     this.setState(() => ({
       update: {
@@ -26,6 +34,7 @@ class EditTodo extends Component {
       }
     }));
   };
+
   // getDerivedStateFromProps is the same as componentWillReceiveProps and its function is to change the state of a component if the props changes.
   static getDerivedStateFromProps(props, state) {
     if (props.viewedTodo._id !== state.update._id) {
@@ -38,20 +47,33 @@ class EditTodo extends Component {
     }
     return null;
   }
+
   componentDidMount() {
+    this.props.Clear();
+    this.props.IsEdit();
     this.props.FetchOneTodo(this.props.match.params.id, this.state.token);
   }
+
   handleOnSubmit = e => {
     e.preventDefault();
     if (this.state.update.activity !== this.props.viewedTodo.activity) {
       this.props.IsEditActivity(this.state.update, this.state.token);
     }
-    this.props.history.push("/todos");
+    // this.props.history.push("/todos");
   };
+
   handleOnCancel = e => {
     e.stopPropagation();
+    this.props.Clear();
+    this.props.IsNotEdit();
     this.props.history.push("/todos");
   };
+
+  componentDidUpdate() {
+    if (this.props.createError === null && !this.props.isEditing) {
+      this.props.history.push("/todos");
+    }
+  }
   render() {
     return (
       <div className="EditTodo_modal">
@@ -74,6 +96,9 @@ class EditTodo extends Component {
                 Cancel
               </button>
             </div>
+            {this.props.createError && (
+              <p className="signup_error">{this.props.createError}</p>
+            )}
           </form>
         </div>
       </div>
@@ -82,18 +107,21 @@ class EditTodo extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ IsEditActivity, FetchOneTodo }, dispatch);
+  return bindActionCreators(
+    { IsEditActivity, FetchOneTodo, Clear, IsEdit, IsNotEdit },
+    dispatch
+  );
 };
 
 const mapStateToProps = state => {
   return {
+    createError: state.Todos.todoError,
+    isEditing: state.Todos.isEditing,
     viewedTodo: state.Todos.viewedTodo,
-    token: state.User.user.token.token
+    token: state.User.user.token.token,
+    amount: state.User.Amount
   };
 };
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(EditTodo)
+  connect(mapStateToProps, mapDispatchToProps)(EditTodo)
 );

@@ -18,6 +18,10 @@ export const VERIFY_USER_PASSWORD_ERROR = "VERIFY_USER_PASSWORD_ERROR";
 export const VERIFY_USER_PASSWORD = "VERIFY_USER_PASSWORD";
 export const CHANGE_PASSWORD_ERROR = "CHANGE_PASSWORD_ERROR";
 export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+export const PAYER_ERROR = "PAYER_ERROR";
+export const PAYER = "PAYER";
+export const PAYMENT_ERROR = "PAYMENT_ERROR";
+export const PAYMENT = "PAYMENT";
 
 // Reset_password
 const url = "http://localhost:5000/api/v1/users";
@@ -233,21 +237,18 @@ export const VerifyForgottenUserPassword = (email, token, search) => {
       .then(res => res.json())
       .then(res => {
         if (res.status !== 200) {
-          console.log("from me that is bad one", res);
           return dispatch({
             type: VERIFY_USER_PASSWORD_ERROR,
             payload: res
           });
         }
         dispatch({ type: CLEAR_ERROR });
-        console.log("from me that is not bad one", res);
         return dispatch({
           type: VERIFY_USER_PASSWORD,
           payload: res
         });
       })
       .catch(err => {
-        console.log("from me that is bad two", err);
         return dispatch({
           type: VERIFY_USER_PASSWORD_ERROR,
           payload: err
@@ -286,6 +287,76 @@ export const ChangeUserPassword = (password, id) => {
       .catch(err => {
         return dispatch({
           type: CHANGE_PASSWORD_ERROR,
+          payload: err
+        });
+      });
+  };
+};
+
+//allows users to make payments
+export const Pay = (token, amount, response) => {
+  const payer = { amount, response };
+  return dispatch => {
+    dispatch({ type: USER_ISLOADING, payload: { isLoading: true } });
+    const data = JSON.stringify(payer);
+    fetch(`${url}/fund`, {
+      method: "PATCH",
+      headers: {
+        Bearer: token,
+        "Content-Type": "application/json"
+      },
+      body: data
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.status !== 200) {
+          return dispatch({
+            type: PAYER_ERROR,
+            payload: res
+          });
+        }
+        dispatch({ type: CLEAR_ERROR });
+        return dispatch({
+          type: PAYER,
+          payload: res
+        });
+      })
+      .catch(err => {
+        return dispatch({
+          type: PAYER_ERROR,
+          payload: err
+        });
+      });
+  };
+};
+
+//allows users to make fetch their payment
+export const Payments = token => {
+  return dispatch => {
+    dispatch({ type: USER_ISLOADING, payload: { isLoading: true } });
+    fetch(`${url}/payments`, {
+      headers: {
+        Bearer: token,
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.status !== 200) {
+          return dispatch({
+            type: PAYMENT_ERROR,
+            payload: res
+          });
+        }
+        dispatch({ type: CLEAR_ERROR });
+        return dispatch({
+          type: PAYMENT,
+          payload: res
+        });
+      })
+      .catch(err => {
+        return dispatch({
+          type: PAYMENT_ERROR,
           payload: err
         });
       });

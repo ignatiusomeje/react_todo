@@ -4,12 +4,17 @@ import TodoItem from "./TodoItem";
 import "./styles/Todo.css";
 import { bindActionCreators } from "redux";
 import { FetchAllTodos, IsDoneTodo, ClearTodo } from "./../actions/TodoActions";
+import { Payments } from "./../actions/userActions";
 import { connect } from "react-redux";
 
 class Todo extends Component {
   componentDidMount() {
+    this.props.Payments(this.props.token);
     this.props.ClearTodo();
     this.props.FetchAllTodos(this.props.token);
+  }
+  componentDidUpdate() {
+    this.props.Payments(this.props.token);
   }
 
   render() {
@@ -39,7 +44,10 @@ class Todo extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ FetchAllTodos, IsDoneTodo, ClearTodo }, dispatch);
+  return bindActionCreators(
+    { FetchAllTodos, IsDoneTodo, ClearTodo, Payments },
+    dispatch
+  );
 };
 
 const mapStateToProps = state => {
@@ -50,7 +58,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Todo);
+export default connect(mapStateToProps, mapDispatchToProps)(Todo);

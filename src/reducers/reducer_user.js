@@ -18,7 +18,11 @@ import {
   VERIFY_USER_PASSWORD,
   VERIFY_USER_PASSWORD_ERROR,
   CHANGE_PASSWORD_ERROR,
-  CHANGE_PASSWORD
+  CHANGE_PASSWORD,
+  PAYER,
+  PAYER_ERROR,
+  PAYMENT_ERROR,
+  PAYMENT
 } from "../actions/userActions";
 
 const INITIAL_STATE = {
@@ -29,7 +33,8 @@ const INITIAL_STATE = {
   isLoading: false,
   isLoggedIn: false,
   isEditing: false,
-  fetchInfo: null
+  fetchInfo: null,
+  Amount: 0
 };
 
 export default function UserReducer(state = INITIAL_STATE, action) {
@@ -40,6 +45,13 @@ export default function UserReducer(state = INITIAL_STATE, action) {
         verify: action.payload.message,
         isNotVerify: true,
         isLoading: false
+      };
+
+    case PAYMENT:
+    case PAYER:
+      return {
+        ...state,
+        Amount: action.payload.message.amount
       };
 
     case VERIFY_USER:
@@ -87,6 +99,8 @@ export default function UserReducer(state = INITIAL_STATE, action) {
         isLoading: false
       };
 
+    case PAYMENT_ERROR:
+    case PAYER_ERROR:
     case VERIFY_USER_PASSWORD_ERROR:
     case CHANGE_PASSWORD_ERROR:
     case VERIFY_USER_ERROR:
