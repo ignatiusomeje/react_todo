@@ -51,7 +51,8 @@ export default function UserReducer(state = INITIAL_STATE, action) {
     case PAYER:
       return {
         ...state,
-        Amount: action.payload.message.amount
+        Amount: action.payload.message.amount,
+        isLoading: false
       };
 
     case VERIFY_USER:

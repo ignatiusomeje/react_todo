@@ -51,6 +51,15 @@ class EditTodo extends Component {
   componentDidMount() {
     this.props.Clear();
     this.props.IsEdit();
+    if (this.props.amount === 0 || this.props.amount < 0) {
+      return this.props.history.push("/fund", {
+        background: {
+          hash: "",
+          pathname: "/todos",
+          search: ""
+        }
+      });
+    }
     this.props.FetchOneTodo(this.props.match.params.id, this.state.token);
   }
 

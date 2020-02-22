@@ -24,7 +24,7 @@ class CreateTodo extends Component {
   componentDidMount() {
     this.props.Clear();
     this.props.IsEdit();
-    if (this.props.amount === 0) {
+    if (this.props.amount === 0 || this.props.amount < 0) {
       this.props.history.push("/fund", {
         background: {
           hash: "",
