@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+
+dotenv.config();
 export const CREATE_TODO = "CREATE_TODO";
 export const CREATE_TODO_ERROR = "CREATE_TODO_ERROR";
 export const FETCH_ALL_TODO = "FETCH_ALL_TODO";
@@ -18,7 +21,7 @@ export const ISEDITING = "ISEDITING";
 export const ISNOTEDITING = "ISNOTEDITING";
 export const ISLOADING = "ISLOADING";
 
-const url = "http://localhost:5000/api/v1/todos";
+const url = process.env.ONLINE_TODO_URL;
 
 export const CreatesTodo = (todo, token) => {
   const data = JSON.stringify(todo);

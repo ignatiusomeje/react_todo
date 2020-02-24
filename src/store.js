@@ -18,7 +18,6 @@ const persistedReducer = persistReducer(
   combineReducers({
     User: UserReducer,
     Todos: TodoReducer
-    // currentTodo: {}
   })
 );
 
@@ -31,17 +30,3 @@ export default () => {
   let persistor = persistStore(store);
   return { store, persistor };
 };
-
-// creating an account***********
-// "firstName" -
-//   "lastName" -
-//   "username" -
-//   "email" -
-//   "password" -
-//   "dob" -
-//   "address" -
-//   "phoneNumber";
-
-// login*****************
-// "username"
-//  "password";

@@ -44,15 +44,8 @@ function App() {
         <Route exact={true} path="/signup" children={<Signup />} />
         <Route exact={true} path="/login" children={<Login />} />
         <Route exact={true} path="/unverified" children={<ShowNotVerified />} />
-        {/* <PrivateRoute exact={true} path="/fund" children={<Paystack />} /> */}
-
-        {/* <Route path="/profile" children={<Profile />} /> */}
 
         <PrivateRoute exact={true} path="/todos" children={<Todo />} />
-        {/* <Todo />
-        </PrivateRoute> */}
-        {/* <Route path="/todos/new" children={<CreateTodo />} /> */}
-        {/* <Route path="/todos/:id" children={<IndividualTodo value={1} />} /> */}
         <Route
           exact={true}
           path="/forgotPassword"

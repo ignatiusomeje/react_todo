@@ -6,25 +6,22 @@ import "./styles/signup.css";
 import { bindActionCreators } from "redux";
 import { Pay } from "./../actions/userActions";
 import { connect } from "react-redux";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class Paystack extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: "pk_test_30c5db462ebe23886099bf6671ec6a01d8f4ebd2",
-      email: "mrexcel153@gmail.com",
+      key: process.env.PAYSTACK_KEY,
+      email: this.props.email,
       amount: "",
       disable: true,
       error: null
     };
   }
 
-  //   message: "Approved"
-  // reference: "T280221175110045"
-  // status: "success"
-  // trans: "503671918"
-  // transaction: "503671918"
-  // trxref: "T280221175110045"
   handleOnChange = e => {
     const value = parseInt(e.target.value);
     if (!isNaN(value)) {
@@ -59,13 +56,6 @@ class Paystack extends Component {
   };
 
   componentDidUpdate() {
-    // if (this.state.amount === "") {
-    // //   this.setState(() => ({
-    // //     ...this.state,
-    // //     disable: true,
-    // //     error: null
-    // //   }));
-    // // } else
     if (this.state.amount < 100 && !this.state.disable) {
       this.setState(() => ({
         ...this.state,
@@ -116,19 +106,6 @@ class Paystack extends Component {
           {this.state.error && (
             <p className="signup_error">{this.state.error}</p>
           )}
-          {/* <p>
-          <PaystackButton
-            text="Buy your Todo coins"
-            class="payButton"
-            callback={this.callback}
-            close={this.close}
-            reference={this.getReference()}
-            email={this.state.email}
-            amount={this.state.amount}
-            paystackkey={this.state.key}
-            tag="button"
-          />
-        </p> */}
         </div>
       </div>
     );
@@ -145,8 +122,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Paystack)
+  connect(mapStateToProps, mapDispatchToProps)(Paystack)
 );

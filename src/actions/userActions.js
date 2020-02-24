@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 export const CREATE_USER = "CREATE_USER";
 export const CREATE_USER_ERROR = "CREATE_USER_ERROR";
 export const USER_ISLOADING = "USER_ISLOADING";
@@ -24,7 +28,7 @@ export const PAYMENT_ERROR = "PAYMENT_ERROR";
 export const PAYMENT = "PAYMENT";
 
 // Reset_password
-const url = "http://localhost:5000/api/v1/users";
+const url = process.env.ONLINE_USER_URL;
 
 // Create new user account action generator
 export const CreateUser = user => {
