@@ -27,7 +27,6 @@ export const PAYER = "PAYER";
 export const PAYMENT_ERROR = "PAYMENT_ERROR";
 export const PAYMENT = "PAYMENT";
 
-console.log(process.env.REACT_APP_ONLINE_USER_URL);
 // Reset_password
 const url = process.env.REACT_APP_ONLINE_USER_URL;
 
