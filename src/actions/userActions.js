@@ -28,9 +28,7 @@ export const PAYMENT_ERROR = "PAYMENT_ERROR";
 export const PAYMENT = "PAYMENT";
 
 // Reset_password
-const url =
-  "https://cors-anywhere.herokuapp.com/" +
-  process.env.REACT_APP_ONLINE_USER_URL;
+const url = process.env.REACT_APP_ONLINE_USER_URL;
 
 // Create new user account action generator
 export const CreateUser = user => {
