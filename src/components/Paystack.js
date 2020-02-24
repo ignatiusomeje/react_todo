@@ -14,7 +14,7 @@ class Paystack extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: process.env.PAYSTACK_KEY,
+      key: process.env.REACT_APP_PAYSTACK_KEY,
       email: this.props.email,
       amount: "",
       disable: true,

@@ -21,7 +21,7 @@ export const ISEDITING = "ISEDITING";
 export const ISNOTEDITING = "ISNOTEDITING";
 export const ISLOADING = "ISLOADING";
 
-const url = process.env.ONLINE_TODO_URL;
+const url = process.env.REACT_APP_ONLINE_TODO_URL;
 
 export const CreatesTodo = (todo, token) => {
   const data = JSON.stringify(todo);
