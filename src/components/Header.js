@@ -51,7 +51,6 @@ const Header = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state.User.Amount);
   return {
     amount: state.User.Amount
   };

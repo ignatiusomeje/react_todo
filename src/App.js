@@ -27,13 +27,11 @@ function App() {
   // i'm getting the exact location that we are in using this method useLocation();
 
   const location = useLocation();
-  console.log("location: ", location);
 
   //in the background variable, i'm checking if the state has been added to the location object, if yes, it sets the background to the state.bacground value.
 
   const background = location.state && location.state.background;
 
-  console.log("background: ", background);
   return (
     <div>
       {/* // whenever location is added to Switch, it prevents the path from
